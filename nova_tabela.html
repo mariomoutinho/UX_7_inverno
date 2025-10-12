@@ -2,13 +2,13 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Tabela da Concorrência — Guia do Frio</title>
   <meta name="description" content="Tabela consolidada de locação e venda por loja e categoria, com preços e observações." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="nova_tabela.css" />
 
-  <!-- estilos mínimos para botões/modais + ajustes pedidos -->
+  <!-- estilos mínimos para botões/modais usados na página -->
   <style>
     .btn-mini{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .65rem;border-radius:999px;border:1.5px solid var(--primary);background:#fff;color:#0f3147;font-weight:700;font-size:.85rem;box-shadow:0 3px 10px rgba(0,0,0,.06);cursor:pointer}
     .btn-mini:hover{background:color-mix(in srgb,var(--muted) 65%,#fff)}
@@ -21,7 +21,6 @@
     .modal header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.1rem;border-bottom:1px solid color-mix(in srgb,var(--muted) 55%,#fff)}
     .modal h4{margin:0;font-size:1.05rem;color:#0f3147}
 
-    /* Lista agora é rolável e com estilos para nota/seção */
     .modal .list{list-style:none;margin:0;padding:.75rem;max-height:clamp(320px,70vh,720px);overflow-y:auto;padding-right:.5rem;scrollbar-gutter:stable}
     .modal .list li{display:flex;align-items:center;justify-content:space-between;gap:.75rem;border:1px solid color-mix(in srgb,var(--secondary) 22%,#fff);background:#fff;border-radius:12px;padding:.65rem .8rem;margin:.45rem 0}
     .modal .list .price{font-weight:800;color:#17364c}
@@ -29,7 +28,6 @@
     .modal .list .li-note{justify-content:flex-start;color:#476078}
     .modal .empty{text-align:center;color:#57718a;padding:.9rem 0}
 
-    /* Form do modal de Vendas (permanece igual) */
     .modal .form{border-top:1px solid color-mix(in srgb,var(--muted) 55%,#fff);padding:.85rem .9rem 1rem;background:linear-gradient(180deg,color-mix(in srgb,var(--muted) 35%,#fff),#fff)}
     .form .hint{font-size:.85rem;color:#476078;margin:0 0 .6rem}
     .form .row{display:grid;gap:.6rem;grid-template-columns:1fr 180px auto;align-items:center}
@@ -90,10 +88,10 @@
           </details>
         </li>
 
-        <li><a href="produtos-exclusivos.html">Produtos Exclusivos</a></li>
+        <li><a href="">Produtos Exclusivos</a></li>
         <li><a href="locacao-vendas.html">Locação e Vendas</a></li>
         <li><a href="#contato">Contato</a></li>
-        <li><a href="tabela.html" class="active">Tabela da Concorrência</a></li>
+        <li><a href="nova_tabela.html" class="active">Tabela da Concorrência</a></li>
         <li><a href="insights.html">Insights</a></li>
       </ul>
     </nav>
@@ -103,31 +101,29 @@
     <!-- Hero -->
     <section class="hero hero--metodologia">
       <div class="hero-inner">
-  <h2>Tabela da Concorrência</h2>
+        <h2>Tabela da Concorrência</h2>
 
-  <div class="hero-method" role="note" aria-label="Metodologia">
-    <div class="hero-method-title">Metodologia</div>
-    <ul class="hero-method-list">
-      <li>Pesquisa direta via WhatsApp, Instagram e sites oficiais.</li>
-      <li>Avaliação dos seguintes critérios:
-        <ul>
-          <li>Tempo de resposta ao cliente</li>
-          <li>Modelos de locação (por diária, período, categoria)</li>
-          <li>Experiência do cliente</li>
-          <li>Preços de locação e valores de venda</li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
-
+        <div class="hero-method" role="note" aria-label="Metodologia">
+          <div class="hero-method-title">Metodologia</div>
+          <ul class="hero-method-list">
+            <li>Pesquisa direta via WhatsApp, Instagram e sites oficiais.</li>
+            <li>Avaliação dos seguintes critérios:
+              <ul>
+                <li>Tempo de resposta ao cliente</li>
+                <li>Modelos de locação (por diária, período, categoria)</li>
+                <li>Experiência do cliente</li>
+                <li>Preços de locação e valores de venda</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- Legenda -->
     <section class="legend">
       <div class="chips">
         <span class="chip chip-ok">🔍 Venda informada</span>
-        
         <span class="chip chip-none">❌ Sem venda</span>
       </div>
       <p class="note">Quando o preço de locação é uma faixa (ex.: <em>80–150</em>), indica variação por peça/período.</p>
@@ -145,7 +141,8 @@
               <th>Modelo</th>
               <th>Preço Locação</th>
               <th>Venda</th>
-              <th><a href="#atendimento-titulo" class="th-link">Atendimento</a></th>              <th>Diferenciais</th>
+              <th><a href="#atendimento-titulo" class="th-link">Atendimento</a></th>
+              <th>Diferenciais</th>
             </tr>
           </thead>
           <tbody>
@@ -164,20 +161,18 @@
                   <span class="dot"></span> Ver opções
                 </button>
               </td>
-              <td data-th="Atendimento">
-                <span class="tag tag-neutral">Seco/automatizado</span>
-                
-            </td>              <td data-th="Diferenciais">E-book + lista exclusiva</td>
+              <td data-th="Atendimento"><span class="tag tag-neutral">Seco/automatizado</span></td>
+              <td data-th="Diferenciais">E-book + lista exclusiva</td>
             </tr>
 
             <tr>
               <td data-th="Loja">IClooset Gramado</td>
               <td data-th="Modelo">Período fixo</td>
-              <td data-th="Preço Locação">R$ 97-157
-                <button class="btn-mini ghost" data-rent-store="ICloóset Gramado"
-          aria-label="Ver opções de locação ICloóset Gramado">
-                 <span class="dot"></span> Ver locação
-                    </button>
+              <td data-th="Preço Locação">
+                R$ 97-157
+                <button class="btn-mini ghost" data-rent-store="ICloóset Gramado" aria-label="Ver opções de locação ICloóset Gramado">
+                  <span class="dot"></span> Ver locação
+                </button>
               </td>
               <td data-th="Venda"><span class="chip chip-none">❌ Sem venda</span></td>
               <td data-th="Atendimento"><span class="tag tag-neutral">Automatizado</span></td>
@@ -187,11 +182,11 @@
             <tr>
               <td data-th="Loja">CabiniSolutions</td>
               <td data-th="Modelo">Período variável</td>
-              <td data-th="Preço Locação">R$ 80–300
-                <button class="btn-mini ghost" data-rent-store="CabiniSolutions"
-          aria-label="Ver opções de locação CabiniSolutions">
-    <span class="dot"></span> Ver locação
-  </button>
+              <td data-th="Preço Locação">
+                R$ 80–300
+                <button class="btn-mini ghost" data-rent-store="CabiniSolutions" aria-label="Ver opções de locação CabiniSolutions">
+                  <span class="dot"></span> Ver locação
+                </button>
               </td>
               <td data-th="Venda"><span class="chip chip-none">❌ Sem venda</span></td>
               <td data-th="Atendimento"><span class="tag tag-cool">Seco/impaciente</span></td>
@@ -203,13 +198,11 @@
               <td data-th="Modelo">Período</td>
               <td data-th="Preço Locação">R$ 280 (9 dias)</td>
               <td data-th="Venda">
-  <span class="chip chip-ok">🔍 Venda informada</span>
-  <button class="btn-mini" data-store="Coat Casacos"
-          aria-label="Ver opções de venda Coat Casacos">
-    <span class="dot"></span> Ver opções
-  </button>
-</td>
-
+                <span class="chip chip-ok">🔍 Venda informada</span>
+                <button class="btn-mini" data-store="Coat Casacos" aria-label="Ver opções de venda Coat Casacos">
+                  <span class="dot"></span> Ver opções
+                </button>
+              </td>
               <td data-th="Atendimento"><span class="tag tag-good">Personalizado</span></td>
               <td data-th="Diferenciais">Atendimento direto</td>
             </tr>
@@ -217,20 +210,18 @@
             <tr>
               <td data-th="Loja">RentCold</td>
               <td data-th="Modelo">Categoria</td>
-              <td data-th="Preço Locação">Variável
-                <button class="btn-mini ghost" data-rent-store="RentCold"
-          aria-label="Ver opções de locação RentCold">
-    <span class="dot"></span> Ver locação
-  </button>
-  <td data-th="Venda">
-  <span class="chip chip-ok">🔍 Venda informada</span>
-  <button class="btn-mini" data-store="RentCold" aria-label="Ver opções de venda RentCold">
-    <span class="dot"></span> Ver opções
-  </button>
-</td>
-
-</td>
-
+              <td data-th="Preço Locação">
+                Variável
+                <button class="btn-mini ghost" data-rent-store="RentCold" aria-label="Ver opções de locação RentCold">
+                  <span class="dot"></span> Ver locação
+                </button>
+              </td>
+              <td data-th="Venda">
+                <span class="chip chip-ok">🔍 Venda informada</span>
+                <button class="btn-mini" data-store="RentCold" aria-label="Ver opções de venda RentCold">
+                  <span class="dot"></span> Ver opções
+                </button>
+              </td>
               <td data-th="Atendimento"><span class="tag tag-mid">Médio</span></td>
               <td data-th="Diferenciais">Experiência premium</td>
             </tr>
@@ -254,101 +245,101 @@
 
       <p class="note">* “Não realiza locações” indica que a loja só trabalha com preço de venda; “Sem venda” significa que não comercializa as peças, apenas aluga.</p>
     </section>
-<!-- ============== EXPERIÊNCIA DE ATENDIMENTO (NOVA TABELA) ============== -->
-<section class="table-wrap" aria-labelledby="atendimento-titulo">
-  <h3 id="atendimento-titulo">🧭 Experiência de Atendimento — Lojas Concorrentes</h3>
-  <p class="note">
-    Pesquisa realizada em outubro de 2025
-  </p>
 
-  <div class="table-scroll">
-    <table class="cmp-table">
-      <thead>
-        <tr>
-          <th>Loja</th>
-          <th>Canais de Atendimento</th>
-          <th>Tempo de Resposta / Agilidade</th>
-          <th>Estilo de Comunicação</th>
-          <th>Pontos de Destaque / Críticas</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td data-th="Loja">Aircloset Gramado</td>
-          <td data-th="Canais de Atendimento">WhatsApp (mensagem automática), Instagram</td>
-          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida via WhatsApp, mas sem calor humano</td>
-          <td data-th="Estilo de Comunicação">Comunicação seca e robótica, uso de frases curtas e pontuação “!” frequente</td>
-          <td data-th="Pontos de Destaque / Críticas">
-            Atendimento impessoal, pouco acolhedor. Oferece opção de falar com atendente, porém mantém tom mecânico.
-            Ponto positivo: processo automatizado eficiente e E-book de apoio ao cliente (R$ 25,00).
-          </td>
-        </tr>
+    <!-- ===== COMPARATIVO DE PREÇOS (VENDA) ===== -->
+    <section class="table-wrap" id="comparativo-precos" aria-labelledby="cmp-titulo">
+      <h3 id="cmp-titulo">Comparativo de preços — venda (7 Invernos × concorrentes)</h3>
+      <div class="chart-wrap">
+        <canvas id="cmpChart" height="260"></canvas>
+      </div>
+      <p class="note">
+        Critério: menor preço encontrado por categoria em cada loja. Valores em R$.
+        Quando há faixa (ex.: “59 a 228”), é usado o primeiro valor.
+      </p>
+    </section>
 
-        <tr>
-          <td data-th="Loja">Iclooset Gramado</td>
-          <td data-th="Canais de Atendimento">WhatsApp, Instagram (Linktr.ee com simulação de aluguel)</td>
-          <td data-th="Tempo de Resposta / Agilidade">Resposta automatizada imediata, sem interação humana inicial</td>
-          <td data-th="Estilo de Comunicação">Comunicação objetiva, padrão comercial</td>
-          <td data-th="Pontos de Destaque / Críticas">
-            Facilidade de simulação de preços direto no link, porém ausência de personalização no atendimento.
-            Não foi possível obter diálogo humano inicial.
-          </td>
-        </tr>
+    <!-- ===== COMPARATIVO DE PREÇOS (LOCAÇÃO) ===== -->
+    <section class="table-wrap" id="comparativo-locacao" aria-labelledby="cmp-loc-titulo">
+      <h3 id="cmp-loc-titulo">Comparativo de preços — locação (7 Invernos × concorrentes)</h3>
+      <div class="chart-wrap">
+        <canvas id="cmpRentChart" height="260"></canvas>
+      </div>
+      <p class="note">
+        Períodos comparados: 7, 10, 15 e 30 dias (casaco adulto). Percentuais sobre a 7 Invernos:
+        <strong style="color:#1d8348">verde</strong> = mais caro, <strong style="color:#c0392b">vermelho</strong> = mais barato.
+      </p>
+    </section>
 
-        <tr>
-          <td data-th="Loja">CabiniSolutions (Recife)</td>
-          <td data-th="Canais de Atendimento">Instagram (Messenger) e WhatsApp</td>
-          <td data-th="Tempo de Resposta / Agilidade">Resposta demorada – contato na sexta às 11h16, resposta apenas sábado às 09h19</td>
-          <td data-th="Estilo de Comunicação">Comunicação seca, impaciente, uso exagerado de “!”</td>
-          <td data-th="Pontos de Destaque / Críticas">
-            Passa sensação de pressa e falta de paciência; tom pouco empático (erro a evitar).
-            Apesar disso, têm organização nas etiquetas e clareza de política de preços.
-          </td>
-        </tr>
+    <!-- ============== EXPERIÊNCIA DE ATENDIMENTO (NOVA TABELA) ============== -->
+    <section class="table-wrap" aria-labelledby="atendimento-titulo">
+      <h3 id="atendimento-titulo">🧭 Experiência de Atendimento — Lojas Concorrentes</h3>
+      <p class="note">Pesquisa realizada em outubro de 2025</p>
 
-        <tr>
-          <td data-th="Loja">Coat Casacos (Fortaleza)</td>
-          <td data-th="Canais de Atendimento">Instagram e WhatsApp</td>
-          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida e direta após envio de mensagem</td>
-          <td data-th="Estilo de Comunicação">Comunicação cordial e profissional, mas breve</td>
-          <td data-th="Pontos de Destaque / Críticas">
-            Atendimento funcional e eficiente. Solicitaram informações de viagem (datas e destino)
-            para personalizar orçamento — bom sinal de atenção ao cliente e personalização.
-          </td>
-        </tr>
-
-        <tr>
-          <td data-th="Loja">Rentcold</td>
-          <td data-th="Canais de Atendimento">WhatsApp e site próprio</td>
-          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida através do Instagram com link que direciona até o WhatsApp com atendimento humanizado.</td>
-          <td data-th="Estilo de Comunicação">Atendimento educado, mas com uso de erros de português, o que causa uma impressão de desatenção.</td>
-          <td data-th="Pontos de Destaque / Críticas">Aguardando análise posterior para completar a tabela.</td>
-        </tr>
-
-        <tr>
-          <td data-th="Loja">N.Closet</td>
-          <td data-th="Canais de Atendimento">Instagram (mensagem direta)</td>
-          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida, porém sem empatia</td>
-          <td data-th="Estilo de Comunicação">Comunicação seca e automatizada, envio de tabelas de preço prontas</td>
-          <td data-th="Pontos de Destaque / Críticas">
-            Atendimento frio e mecanizado. Foco apenas na resposta informativa, sem preocupação com encantamento.
-          </td>
-        </tr>
-
-        <tr>
-          <td data-th="Loja">Oficina de Inverno</td>
-          <td data-th="Canais de Atendimento">WhatsApp, site e loja física</td>
-          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida e detalhada</td>
-          <td data-th="Estilo de Comunicação">Comunicação profissional e acolhedora, oferece informações completas</td>
-          <td data-th="Pontos de Destaque / Críticas">
-            Excelente atendimento: detalhamento de produtos e preços; demonstra cuidado e domínio técnico.
-            Destaque como referência positiva de atendimento e branding.
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
+      <div class="table-scroll">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th>Loja</th>
+              <th>Canais de Atendimento</th>
+              <th>Tempo de Resposta / Agilidade</th>
+              <th>Estilo de Comunicação</th>
+              <th>Pontos de Destaque / Críticas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-th="Loja">Aircloset Gramado</td>
+              <td data-th="Canais de Atendimento">WhatsApp (mensagem automática), Instagram</td>
+              <td data-th="Tempo de Resposta / Agilidade">Resposta rápida via WhatsApp, mas sem calor humano</td>
+              <td data-th="Estilo de Comunicação">Comunicação seca e robótica, uso de frases curtas e pontuação “!” frequente</td>
+              <td data-th="Pontos de Destaque / Críticas">Atendimento impessoal, pouco acolhedor. Oferece opção de falar com atendente, porém mantém tom mecânico. Ponto positivo: processo automatizado eficiente e E-book de apoio ao cliente (R$ 25,00).</td>
+            </tr>
+            <tr>
+              <td data-th="Loja">Iclooset Gramado</td>
+              <td data-th="Canais de Atendimento">WhatsApp, Instagram (Linktr.ee com simulação de aluguel)</td>
+              <td data-th="Tempo de Resposta / Agilidade">Resposta automatizada imediata, sem interação humana inicial</td>
+              <td data-th="Estilo de Comunicação">Comunicação objetiva, padrão comercial</td>
+              <td data-th="Pontos de Destaque / Críticas">Facilidade de simulação de preços direto no link, porém ausência de personalização no atendimento. Não foi possível obter diálogo humano inicial.</td>
+            </tr>
+            <tr>
+              <td data-th="Loja">CabiniSolutions (Recife)</td>
+              <td data-th="Canais de Atendimento">Instagram (Messenger) e WhatsApp</td>
+              <td data-th="Tempo de Resposta / Agilidade">Resposta demorada – contato sexta 11h16, resposta sábado 09h19</td>
+              <td data-th="Estilo de Comunicação">Comunicação seca, impaciente, uso exagerado de “!”</td>
+              <td data-th="Pontos de Destaque / Críticas">Passa sensação de pressa e pouca paciência; porém organizados e claros na política de preços.</td>
+            </tr>
+            <tr>
+              <td data-th="Loja">Coat Casacos (Fortaleza)</td>
+              <td data-th="Canais de Atendimento">Instagram e WhatsApp</td>
+              <td data-th="Tempo de Resposta / Agilidade">Resposta rápida e direta</td>
+              <td data-th="Estilo de Comunicação">Cordial e profissional, porém breve</td>
+              <td data-th="Pontos de Destaque / Críticas">Solicitam dados da viagem para personalizar orçamento — ponto positivo.</td>
+            </tr>
+            <tr>
+              <td data-th="Loja">Rentcold</td>
+              <td data-th="Canais de Atendimento">WhatsApp e site</td>
+              <td data-th="Tempo de Resposta / Agilidade">Rápida via Instagram com link para WhatsApp</td>
+              <td data-th="Estilo de Comunicação">Educado, porém com erros de português</td>
+              <td data-th="Pontos de Destaque / Críticas">Aguardando análise posterior para completar.</td>
+            </tr>
+            <tr>
+              <td data-th="Loja">N.Closet</td>
+              <td data-th="Canais de Atendimento">Instagram (DM)</td>
+              <td data-th="Tempo de Resposta / Agilidade">Rápida, porém sem empatia</td>
+              <td data-th="Estilo de Comunicação">Automatizada; envio de tabelas prontas</td>
+              <td data-th="Pontos de Destaque / Críticas">Atendimento frio, apenas informativo.</td>
+            </tr>
+            <tr>
+              <td data-th="Loja">Oficina de Inverno</td>
+              <td data-th="Canais de Atendimento">WhatsApp, site e loja física</td>
+              <td data-th="Tempo de Resposta / Agilidade">Rápida e detalhada</td>
+              <td data-th="Estilo de Comunicação">Profissional e acolhedora</td>
+              <td data-th="Pontos de Destaque / Críticas">Excelente detalhamento; referência positiva.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
     <!-- CTA -->
     <section class="contact" id="contato" aria-labelledby="contato-titulo">
@@ -395,56 +386,52 @@
     </div>
   </div>
 
-  <!-- JS EMBUTIDO -->
-  <script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+
+  <!-- JS principal da página -->
+  <script defer>
+  document.addEventListener('DOMContentLoaded', function () {
     // ano no rodapé
     document.getElementById('year').textContent = new Date().getFullYear();
 
     /* =================== DADOS BASE (VENDA) =================== */
-    const SALES = {"Coat Casacos": [
-  { item: "Calça térmica",  price: "R$ 109,90" },
-  { item: "Blusa térmica",  price: "R$ 109,90" }
-],
-
-      
-          "AirCloset Gramado": [
+    const SALES = {
+      "Coat Casacos": [
+        { item: "Calça térmica",  price: "R$ 109,90" },
+        { item: "Blusa térmica",  price: "R$ 109,90" }
+      ],
+      "AirCloset Gramado": [
         { item: "Calça Térmica", price: "R$ 90,00" }
       ],
       "RentCold": [
-  { item: "Luva camurça",                      price: "R$ 120,00" },
-  { item: "Luva couro",                        price: "R$ 150,00" },
-  { item: "Calça térmica translúcida",         price: "R$ 280,00" },
-  { item: "Calça térmica preta (unissex)",     price: "R$ 280,00" },
-  { item: "Calça térmica bege",                price: "R$ 280,00" },
-  { item: "Calça térmica (interno preto)",     price: "R$ 280,00" },
-  { item: "Calça térmica couro",               price: "R$ 320,00" },
-  { item: "Meias segunda pele",                price: "R$ 60,00"  },
-  { item: "Meia lã de cabra",                  price: "R$ 120,00" }
-],
-
+        { item: "Luva camurça",                      price: "R$ 120,00" },
+        { item: "Luva couro",                        price: "R$ 150,00" },
+        { item: "Calça térmica translúcida",         price: "R$ 280,00" },
+        { item: "Calça térmica preta (unissex)",     price: "R$ 280,00" },
+        { item: "Calça térmica bege",                price: "R$ 280,00" },
+        { item: "Calça térmica (interno preto)",     price: "R$ 280,00" },
+        { item: "Calça térmica couro",               price: "R$ 320,00" },
+        { item: "Meias segunda pele",                price: "R$ 60,00"  },
+        { item: "Meia lã de cabra",                  price: "R$ 120,00" }
+      ],
       "Oficina de Inverno": [
         { note: "🧤 Foco exclusivo em vendas — não realiza locações." },
         { section: "Faixa de preços" },
-
         { section: "Casacos" },
         { item: "Leves",               price: "R$ 318 a R$ 1.820" },
         { item: "Moderado/Intenso",    price: "R$ 780 a R$ 3.280" },
-
         { item: "Blusas",              price: "R$ 288 a R$ 488" },
-
         { section: "Acessórios" },
         { item: "Gorros, boinas, golas, protetores de orelha", price: "R$ 59 a R$ 228" },
         { item: "Cachecóis e xales",                            price: "R$ 118 a R$ 328" },
         { item: "Luvas — térmica",                              price: "R$ 178" },
         { item: "Luvas — fleece",                               price: "R$ 198" },
         { item: "Luvas — couro",                                price: "R$ 388" },
-
         { section: "Segunda pele" },
         { item: "Térmica Basics",     price: "R$ 199" },
         { item: "Super Térmica",      price: "R$ 278" },
-
         { item: "Botas",              price: "R$ 488 a R$ 948" },
-
         { section: "Calças" },
         { item: "Meia-calça",         price: "R$ 168" },
         { item: "Legging Comfort",    price: "R$ 320 a R$ 350" },
@@ -458,89 +445,45 @@
         { item: "Conjunto térmico 2ª pele (adulto)",   price: "R$ 120,00" },
         { item: "Conjunto térmico 2ª pele (infantil)", price: "R$ 110,00" },
         { item: "Meia flanelada para bota",            price: "R$ 15,00"  }
-      ],
-      "entcold": [
-        { item: "Luva camurça",                         price: "R$ 120,00" },
-        { item: "Luva couro",                           price: "R$ 150,00" },
-        { item: "Calça térmica translúcida",            price: "R$ 280,00" },
-        { item: "Calça térmica preta (unissex)",        price: "R$ 280,00" },
-        { item: "Calça térmica bege",                   price: "R$ 280,00" },
-        { item: "Calça térmica (interno preto)",        price: "R$ 280,00" },
-        { item: "Calça térmica couro",                  price: "R$ 320,00" },
-        { item: "Meias segunda pele",                   price: "R$ 60,00" },
-        { item: "Meia lã de cabra",                     price: "R$ 120,00" }
       ]
     };
 
     /* =================== DADOS BASE (LOCAÇÃO) =================== */
-    const RENTALS = {"RentCold": [
-  { section: "Gold" },
-  { item: "7 dias",  price: "R$ 180,00" },
-  { item: "10 dias", price: "R$ 240,00" },
-  { item: "12 dias", price: "R$ 280,00" },
-  { item: "15 dias", price: "R$ 320,00" },
-  { item: "20 dias", price: "R$ 400,00" },
-  { item: "30 dias", price: "R$ 475,00" },
+    const RENTALS = {
+      "RentCold": [
+        { section: "Gold" },
+        { item: "7 dias",  price: "R$ 180,00" },
+        { item: "10 dias", price: "R$ 240,00" },
+        { item: "12 dias", price: "R$ 280,00" },
+        { item: "15 dias", price: "R$ 320,00" },
+        { item: "20 dias", price: "R$ 400,00" },
+        { item: "30 dias", price: "R$ 475,00" },
 
-  { section: "Diamond" },
-  { item: "7 dias",  price: "R$ 240,00" },
-  { item: "10 dias", price: "R$ 295,00" },
-  { item: "12 dias", price: "R$ 330,00" },
-  { item: "15 dias", price: "R$ 380,00" },
-  { item: "20 dias", price: "R$ 475,00" },
-  { item: "30 dias", price: "R$ 580,00" },
+        { section: "Diamond" },
+        { item: "7 dias",  price: "R$ 240,00" },
+        { item: "10 dias", price: "R$ 295,00" },
+        { item: "12 dias", price: "R$ 330,00" },
+        { item: "15 dias", price: "R$ 380,00" },
+        { item: "20 dias", price: "R$ 475,00" },
+        { item: "30 dias", price: "R$ 580,00" },
 
-  { section: "Silver" },
-  { item: "7 dias",  price: "R$ 170,00" },
-  { item: "10 dias", price: "R$ 190,00" },
-  { item: "12 dias", price: "R$ 230,00" },
-  { item: "15 dias", price: "R$ 260,00" },
-  { item: "20 dias", price: "R$ 290,00" },
-  { item: "30 dias", price: "R$ 380,00" },
-
-  { section: "Vestido Blazer Diamond" },
-  { item: "7 dias",  price: "R$ 160,00" },
-  { item: "10 dias", price: "R$ 190,00" },
-  { item: "12 dias", price: "R$ 230,00" },
-  { item: "15 dias", price: "R$ 250,00" },
-  { item: "20 dias", price: "R$ 290,00" },
-  { item: "30 dias", price: "R$ 350,00" },
-
-  { section: "Casaco Ski" },
-  { item: "7 dias",  price: "R$ 380,00" },
-  { item: "10 dias", price: "R$ 430,00" },
-  { item: "12 dias", price: "R$ 480,00" },
-  { item: "15 dias", price: "R$ 510,00" },
-  { item: "20 dias", price: "R$ 650,00" },
-  { item: "30 dias", price: "R$ 840,00" },
-
-  { section: "Ski — Calça" },
-  { item: "7 dias",  price: "R$ 280,00" },
-  { item: "10 dias", price: "R$ 345,00" },
-  { item: "12 dias", price: "R$ 390,00" },
-  { item: "15 dias", price: "R$ 425,00" },
-  { item: "20 dias", price: "R$ 545,00" },
-  { item: "30 dias", price: "R$ 615,00" },
-
-  { section: "Ski — Macacão" },
-  { item: "7 dias",  price: "R$ 480,00" },
-  { item: "10 dias", price: "R$ 560,00" },
-  { item: "12 dias", price: "R$ 590,00" },
-  { item: "15 dias", price: "R$ 675,00" },
-  { item: "20 dias", price: "R$ 790,00" },
-  { item: "30 dias", price: "R$ 890,00" }
-],
-
-"CabiniSolutions": [
-{ item: "Até 7 dias",  price: "R$ valor da etiqueta variando por peça" },
-    { item: "10 dias",  price: "R$ +15%" },
-  { item: "15 dias",  price: "R$ +30%" },
-  { item: "21 dias",  price: "R$ +50%" }
-],
-
-        "ICloóset Gramado": [
+        { section: "Silver" },
+        { item: "7 dias",  price: "R$ 170,00" },
+        { item: "10 dias", price: "R$ 190,00" },
+        { item: "12 dias", price: "R$ 230,00" },
+        { item: "15 dias", price: "R$ 260,00" },
+        { item: "20 dias", price: "R$ 290,00" },
+        { item: "30 dias", price: "R$ 380,00" }
+      ],
+      "CabiniSolutions": [
+        { item: "Até 7 dias",  price: "R$ valor da etiqueta variando por peça" },
+        { item: "10 dias",  price: "R$ +15%" },
+        { item: "15 dias",  price: "R$ +30%" },
+        { item: "21 dias",  price: "R$ +50%" }
+      ],
+      "ICloóset Gramado": [
         { item: "Valor fixo para todo o período (independente de dias e peças)", price: "R$ 97-157,00" }
-],
+      ],
       "AirCloset Gramado": [
         { item: "Acessórios", price: "R$ 40,00" },
         { item: "Jaqueta feminina", price: "R$ 80,00" },
@@ -549,21 +492,10 @@
         { item: "Sobretudo",        price: "R$ 140,00" },
         { item: "Linha luxo",       price: "a partir de R$ 150,00" }
       ]
-      
       // Oficina de Inverno não realiza locações
     };
 
-    /* =================== PERSISTÊNCIA (VENDAS CUSTOM) =================== */
-    const LS_KEY = "sales_custom_v1";
-    const customSales = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
-    function saveCustomSales(){ localStorage.setItem(LS_KEY, JSON.stringify(customSales)); }
-    function getMergedSales(store){
-      const base  = SALES[store] ? [...SALES[store]] : [];
-      const extra = customSales[store] ? [...customSales[store]] : [];
-      return [...base, ...extra];
-    }
-
-    /* =================== MODAL DE VENDAS =================== */
+    /* =================== MODAIS (VENDA/LOCAÇÃO) =================== */
     const saleModal = document.getElementById('sale-modal');
     const saleList  = document.getElementById('sale-list');
     const saleTitle = document.getElementById('sale-title');
@@ -576,9 +508,15 @@
     const saleAdd   = document.getElementById('sale-add');
     const saleClear = document.getElementById('sale-clear');
 
-    let currentSaleStore = null;
+    const LS_KEY = "sales_custom_v1";
+    const customSales = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+    function saveCustomSales(){ localStorage.setItem(LS_KEY, JSON.stringify(customSales)); }
+    function getMergedSales(store){
+      const base  = SALES[store] ? [...SALES[store]] : [];
+      const extra = customSales[store] ? [...customSales[store]] : [];
+      return [...base, ...extra];
+    }
 
-    // >>> render que aceita item/price e também note/section (sem "undefined")
     function renderSaleList(store){
       const items = getMergedSales(store);
       saleList.innerHTML = items.length
@@ -593,21 +531,17 @@
             return "";
           }).join("")
         : `<li class="empty">Sem detalhes informados para esta loja.</li>`;
-      // começa do topo
       saleList.scrollTop = 0;
     }
 
     function openSale(store){
-      currentSaleStore = store;
       saleTitle.textContent = `Opções de venda — ${store}`;
       saleStorePill.textContent = store;
-      saleStorePill.title = "Loja atual";
       renderSaleList(store);
       saleModal.classList.add('show');
       saleModal.setAttribute('aria-hidden','false');
       saleItem.value = "";
       salePrice.value = "";
-      saleList.scrollTop = 0; // reforço
       saleItem.focus();
     }
     function closeSale(){
@@ -615,7 +549,6 @@
       saleModal.setAttribute('aria-hidden','true');
     }
 
-    // abrir modal de vendas pelos botões da tabela
     document.querySelectorAll('.btn-mini[data-store]').forEach(btn=>{
       btn.addEventListener('click', ()=> openSale(btn.getAttribute('data-store')));
     });
@@ -623,49 +556,49 @@
     saleModal.addEventListener('click', (e)=>{ if(e.target === saleModal) closeSale(); });
     window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeSale(); });
 
-    // adicionar item (VENDA) com persistência
     saleAdd.addEventListener('click', (e)=>{
       e.preventDefault();
       const item  = saleItem.value.trim();
       let   price = salePrice.value.trim();
-      if (!currentSaleStore) return;
       if (!item || !price){ alert("Preencha item e preço."); return; }
       if (!/^R\$\s*/i.test(price)) price = "R$ " + price;
-      (customSales[currentSaleStore] ||= []).push({ item, price });
+      (customSales[saleStorePill.textContent] ||= []).push({ item, price });
       saveCustomSales();
-      renderSaleList(currentSaleStore);
+      renderSaleList(saleStorePill.textContent);
       saleItem.value = ""; salePrice.value = ""; saleItem.focus();
     });
 
-    // limpar apenas os itens adicionados manualmente da loja atual
     saleClear.addEventListener('click', ()=>{
-      if (!currentSaleStore) return;
-      if (!customSales[currentSaleStore] || !customSales[currentSaleStore].length){
-        alert("Não há itens adicionados manualmente para esta loja.");
-        return;
-      }
-      if (confirm(`Remover itens adicionados manualmente de "${currentSaleStore}"?`)){
-        delete customSales[currentSaleStore];
-        saveCustomSales();
-        renderSaleList(currentSaleStore);
+      const store = saleStorePill.textContent;
+      if (!customSales[store]?.length){ alert("Não há itens adicionados manualmente para esta loja."); return; }
+      if (confirm(`Remover itens adicionados manualmente de "${store}"?`)){
+        delete customSales[store]; saveCustomSales(); renderSaleList(store);
       }
     });
 
-    /* =================== MODAL DE LOCAÇÃO =================== */
     const rentModal = document.getElementById('rent-modal');
     const rentList  = document.getElementById('rent-list');
     const rentTitle = document.getElementById('rent-title');
     const rentClose = document.getElementById('rent-close');
 
-    function openRent(store){
+    function renderRentList(store){
       const items = RENTALS[store] || [];
-      rentTitle.textContent = `Opções de locação — ${store}`;
       rentList.innerHTML = items.length
-        ? items.map(i => `<li><span>${i.item}</span><span class="price">${i.price}</span></li>`).join('')
+        ? items.map(i => {
+            if (i.section) return `<li class="li-section">${i.section}</li>`;
+            if (i.note)    return `<li class="li-note">${i.note}</li>`;
+            const left  = i.item  ? `<span>${i.item}</span>` : `<span></span>`;
+            const right = i.price ? `<span class="price">${i.price}</span>` : "";
+            return `<li>${left}${right}</li>`;
+          }).join("")
         : `<li class="empty">Sem detalhes informados para esta loja.</li>`;
+      rentList.scrollTop = 0;
+    }
+    function openRent(store){
+      rentTitle.textContent = `Opções de locação — ${store}`;
+      renderRentList(store);
       rentModal.classList.add('show');
       rentModal.setAttribute('aria-hidden','false');
-      rentList.scrollTop = 0;
     }
     function closeRent(){
       rentModal.classList.remove('show');
@@ -678,27 +611,266 @@
     rentClose.addEventListener('click', closeRent);
     rentModal.addEventListener('click', (e)=>{ if(e.target === rentModal) closeRent(); });
     window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') { closeRent(); closeSale(); } });
-    function renderRentList(store){
-  const items = RENTALS[store] || [];
-  rentList.innerHTML = items.length
-    ? items.map(i => {
-        if (i.section) return `<li class="li-section">${i.section}</li>`;
-        if (i.note)    return `<li class="li-note">${i.note}</li>`;
-        const left  = i.item  ? `<span>${i.item}</span>` : `<span></span>`;
-        const right = i.price ? `<span class="price">${i.price}</span>` : "";
-        return `<li>${left}${right}</li>`;
-      }).join("")
-    : `<li class="empty">Sem detalhes informados para esta loja.</li>`;
-  rentList.scrollTop = 0; // começa do topo
-}
 
-function openRent(store){
-  rentTitle.textContent = `Opções de locação — ${store}`;
-  renderRentList(store);
-  rentModal.classList.add('show');
-  rentModal.setAttribute('aria-hidden','false');
-}
+    /* =================== UTILIDADES PARA OS GRÁFICOS =================== */
+    const BRL = (n)=> new Intl.NumberFormat('pt-BR', { style:'currency', currency:'BRL', maximumFractionDigits: 0 }).format(n);
+    function parsePrice(p){
+      if (!p) return null;
+      const m = String(p).match(/(\d{1,3}(?:[\.\s]\d{3})*|\d+)(?:,\d{2})?/);
+      if (!m) return null;
+      return Number(m[0].replace(/\./g,'').replace(',', '.'));
+    }
 
+    /* =================== GRÁFICO — VENDA (com % animado) =================== */
+    const SEVEN_INVERNOS = [
+      { item: "Camisa Térmica (segunda pele) unissex", price: "R$ 72,00" },
+      { item: "Calça Térmica (segunda pele) unissex",   price: "R$ 82,00" },
+      { item: "Meia calça forrada",                     price: "R$ 90,00" },
+      { item: "Meia térmica peluciada",                 price: "R$ 25,00" },
+      { item: "Gorro Unissex",                          price: "R$ 65,00" },
+      { item: "Gorro Unissex com pompom",               price: "R$ 65,00" },
+      { item: "Luva simples unissex",                   price: "R$ 25,00" },
+      { item: "Luva simples com touch",                 price: "R$ 30,00" },
+      { item: "Luva feminina com touch",                price: "R$ 75,00" },
+      { item: "Cachecol Unissex",                       price: "R$ 80,00" },
+      { item: "Camisa Térmica Aclive",                  price: "R$ 127,00" },
+      { item: "Calça Térmica Aclive",                   price: "R$ 132,00" }
+    ];
+
+    const OVERRIDES = { "Oficina de Inverno": { calca: 320 } }; // correção manual
+
+    const CATS = [
+      { key: 'camisa', label: 'Camisa térmica (2ª pele)' },
+      { key: 'calca',  label: 'Calça térmica (2ª pele)' },
+      { key: 'gorro',  label: 'Gorro' },
+      { key: 'meia',   label: 'Meia-calça / térmica' },
+      { key: 'luva',   label: 'Luva básica' }
+    ];
+
+    function bestByCategory(list, category){
+      const patterns = {
+        camisa: [/camisa.*t[ée]rmic/i, /blusa.*t[ée]rmic/i, /segunda\s*pele.*(camisa|blusa)?/i],
+        calca:  [/cal[cç]a.*t[ée]rmic/i, /segunda\s*pele.*cal[cç]a/i],
+        gorro:  [/gorro/i],
+        meia:   [/meia.*cal[cç]a/i, /meia.*forrad/i, /meia.*t[ée]rmic.*peluc/i],
+        luva:   [/luva(?!.*couro)(?!.*camur)/i]
+      }[category];
+
+      const nums = list
+        .filter(i => i && i.item && i.price && patterns.some(rx => rx.test(i.item)))
+        .map(i => parsePrice(i.price))
+        .filter(n => typeof n === 'number' && !Number.isNaN(n));
+
+      if (!nums.length) return null;
+      return Math.min(...nums);
+    }
+
+    function salesEntriesFromConstant(){
+      return Object.entries(SALES).map(([store, items]) => ({ store, items: (items||[]).filter(Boolean) }));
+    }
+
+    const STORES = [
+      { store: '7 Invernos', items: SEVEN_INVERNOS },
+      ...salesEntriesFromConstant()
+    ];
+
+    const palette = ['#349cc7','#607a94','#176a4f','#b36b00','#8a1f2a','#364a5d','#7b3fbf'];
+
+    const datasetsSale = [];
+    STORES.forEach((s, idx) => {
+      const row = CATS.map(c => {
+        const fix = OVERRIDES[s.store]?.[c.key];
+        return (fix != null) ? fix : bestByCategory(s.items, c.key);
+      });
+      if (row.every(v => v == null)) return;
+      datasetsSale.push({
+        label: s.store,
+        data: row,
+        backgroundColor: palette[idx % palette.length],
+        borderRadius: 6,
+        borderSkipped: false
+      });
+    });
+
+    // Plugin de % para o gráfico de VENDAS
+    const percentPluginSale = {
+      id: "percentDiffSale",
+      afterDatasetsDraw(chart){
+        const ctx = chart.ctx;
+        const base = chart.data.datasets[0]?.data || [];
+        const prog = chart.animProgress ?? 1;
+
+        ctx.save();
+        ctx.font = "700 11px system-ui,-apple-system,Segoe UI,Roboto";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "bottom";
+
+        chart.data.datasets.forEach((ds, di) => {
+          if (di === 0) return; // 7 Invernos = base
+          const meta = chart.getDatasetMeta(di);
+          meta.data.forEach((bar, i) => {
+            const ref = base[i], val = ds.data[i];
+            if (ref == null || val == null) return;
+            const diff  = ((val - ref) / ref) * 100;
+            const shown = diff * prog;
+            ctx.fillStyle = diff >= 0 ? "#1d8348" : "#c0392b";
+            const txt = (diff >= 0 ? "+" : "") + Math.round(shown) + "%";
+            ctx.fillText(txt, bar.x, bar.y - 6);
+          });
+        });
+
+        ctx.restore();
+      }
+    };
+
+    const ctxSale = document.getElementById('cmpChart').getContext('2d');
+    new Chart(ctxSale, {
+      type: 'bar',
+      data: { labels: CATS.map(c => c.label), datasets: datasetsSale },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        animation: {
+          duration: 1100,
+          easing: "easeOutCubic",
+          onProgress: (anim) => { anim.chart.animProgress = anim.currentStep / anim.numSteps; },
+          onComplete: (anim) => { anim.chart.animProgress = 1; }
+        },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 14, usePointStyle: true, pointStyle: 'rectRounded' } },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => `${ctx.dataset.label}: ${BRL(ctx.raw)}`,
+              afterLabel: (ctx) => {
+                const base = ctx.chart.data.datasets[0].data[ctx.dataIndex];
+                const val  = ctx.raw;
+                if (base == null || val == null || ctx.datasetIndex === 0) return "";
+                const diff = ((val - base) / base) * 100;
+                const sig  = diff >= 0 ? "+" : "";
+                return `  (${sig}${diff.toFixed(0)}% vs 7 Invernos)`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: { beginAtZero: true, ticks: { callback: v => BRL(v) }, grid: { color: 'rgba(0,0,0,.06)' } },
+          x: { grid: { display: false } }
+        }
+      },
+      plugins: [percentPluginSale]
+    });
+
+    /* =================== GRÁFICO — LOCAÇÃO (com % animado) =================== */
+    (function makeRentChart(){
+      // Períodos comparados (dias)
+      const PERIODS = [7, 10, 15, 30];
+
+      // 7 Invernos — Casaco Adulto (tabela das imagens)
+      const SEVEN_RENT = { 7:105, 10:111, 15:121, 30:151 };
+
+      // Busca preço por "section" dentro de RENTALS["RentCold"]
+      function rentcold(sectionName, days){
+        const list = (RENTALS && RENTALS["RentCold"]) || [];
+        let inSection = false;
+        for (const row of list){
+          if (row.section){
+            inSection = new RegExp(sectionName, "i").test(row.section);
+            continue;
+          }
+          if (!inSection || !row.item) continue;
+          const m = row.item.match(/(\d+)\s*dias?/i);
+          if (m && Number(m[1]) === days) return parsePrice(row.price);
+        }
+        return null;
+      }
+
+      // Séries: 7 Invernos + RentCold (Gold/Diamond/Silver)
+      const series = [
+        { label: "7 Invernos",         data: PERIODS.map(d => SEVEN_RENT[d] ?? null) },
+        { label: "RentCold — Gold",    data: PERIODS.map(d => rentcold("Gold", d)) },
+        { label: "RentCold — Diamond", data: PERIODS.map(d => rentcold("Diamond", d)) },
+        { label: "RentCold — Silver",  data: PERIODS.map(d => rentcold("Silver", d)) }
+      ].filter(ds => ds.data.some(v => v != null));
+
+      if (!series.length) return;
+
+      const palette2 = ["#349cc7","#607a94","#176a4f","#b36b00","#8a1f2a","#364a5d"];
+
+      // Plugin: escreve o % vs 7I acima de cada barra concorrente, com contagem e cor
+      const percentPluginRent = {
+        id: "percentDiffRent",
+        afterDatasetsDraw(chart){
+          const ctx = chart.ctx;
+          const base = chart.data.datasets[0]?.data || [];
+          const prog = chart.animProgress ?? 1; // 0→1
+
+          ctx.save();
+          ctx.font = "700 11px system-ui,-apple-system,Segoe UI,Roboto";
+          ctx.textAlign = "center";
+          ctx.textBaseline = "bottom";
+
+          chart.data.datasets.forEach((ds, di) => {
+            if (di === 0) return; // 7I é base
+            const meta = chart.getDatasetMeta(di);
+            meta.data.forEach((bar, i) => {
+              const ref = base[i], val = ds.data[i];
+              if (ref == null || val == null) return;
+              const diff  = ((val - ref) / ref) * 100;
+              const shown = diff * prog;
+              ctx.fillStyle = diff >= 0 ? "#1d8348" : "#c0392b";
+              const txt = (diff >= 0 ? "+" : "") + Math.round(shown) + "%";
+              ctx.fillText(txt, bar.x, bar.y - 6);
+            });
+          });
+          ctx.restore();
+        }
+      };
+
+      const datasets = series.map((s, i) => ({
+        label: s.label,
+        data: s.data,
+        backgroundColor: palette2[i % palette2.length],
+        borderRadius: 6,
+        borderSkipped: false
+      }));
+
+      const ctx = document.getElementById("cmpRentChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: { labels: PERIODS.map(d => `${d} dias`), datasets },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: { mode: "index", intersect: false },
+          animation: {
+            duration: 1100, easing: "easeOutCubic",
+            onProgress: (anim) => { anim.chart.animProgress = anim.currentStep / anim.numSteps; },
+            onComplete: (anim) => { anim.chart.animProgress = 1; }
+          },
+          plugins: {
+            legend: { position: "bottom", labels: { boxWidth: 14, usePointStyle: true, pointStyle: "rectRounded" } },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: ${BRL(ctx.raw)}`,
+                afterLabel: (ctx) => {
+                  const base = ctx.chart.data.datasets[0].data[ctx.dataIndex];
+                  const val  = ctx.raw;
+                  if (base == null || val == null || ctx.datasetIndex === 0) return "";
+                  const diff = ((val - base) / base) * 100;
+                  const sig  = diff >= 0 ? "+" : "";
+                  return `  (${sig}${diff.toFixed(0)}% vs 7 Invernos)`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: { beginAtZero: true, ticks: { callback: v => BRL(v) }, grid: { color: "rgba(0,0,0,.06)" } },
+            x: { grid: { display: false } }
+          }
+        },
+        plugins: [percentPluginRent]
+      });
+    })();
+  });
   </script>
 </body>
 </html>
