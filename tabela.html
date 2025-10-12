@@ -1,0 +1,186 @@
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Benchmark — Locação & Venda <a href="locacao_e_vendas.html"></a></title>
+  <meta name="description" content="Tabela comparativa de locação e venda de roupas de frio com atendimento e diferenciais." />
+  <link rel="stylesheet" href="lv-styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- Topbar -->
+   <div class="topbar">
+    <span class="snow"><img src="assets/logo_7_invernos.jpg" alt=""></span>
+    <strong>Fica frio que a gente te esquenta</strong>
+    <span class="snow"></span>
+  </div>
+  
+
+  <!-- Cabeçalho e Navegação -->
+  <header class="site-header">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><img src="assets/logo_7_invernos.jpg" alt=""></div>
+      <div class="brand-text">
+        <h1>Guia do Frio</h1>
+        <p class="sub">Para quem parte do calor do Recife</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Principal">
+      <ul class="menu">
+        <li><a href="index.html" class="active">Início</a></li>
+
+        <li class="has-branch">
+          <details>
+            <summary>Dicas Essenciais</summary>
+            <ul class="dropdown">
+              <li><a href="dicas.html">Panorama Geral</a></li>
+              <li><a href="camadas.html">Sistema de Camadas</a></li>
+              <li><a href="checklist.html">Checklist de Bagagem</a></li>
+              <li><a href="saude-pele.html">Saúde, Pele & Hidratação</a></li>
+            </ul>
+          </details>
+        </li>
+
+        
+
+        <li class="has-branch">
+          <details>
+            <summary>Destinos</summary>
+            <ul class="dropdown">
+              <li><a href="destinos/patagonia.html">Patagônia (−5 °C a 5 °C)</a></li>
+              <li><a href="destinos/ushuaia.html">Ushuaia (−10 °C a 2 °C)</a></li>
+              <li><a href="destinos/bariloche.html">Bariloche (−2 °C a 7 °C)</a></li>
+              <li><a href="destinos/europa-inverno.html">Europa no Inverno</a></li>
+            </ul>
+          </details>
+        </li>
+
+        <li><a href="produtos.html">Produtos Recomendados</a></li>
+        <li><a href="locacao-vendas.html">Locação e Vendas</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a href="tabela.html">Tabela da Concorrência  </a></li>
+        <li><a href="insights.html">Insights</a></li>
+        
+      </ul>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <h2>Locação &amp; Venda — panorama</h2>
+        <p>Visão consolidada de preço, modelo, atendimento e diferenciais das principais lojas analisadas.</p>
+      </div>
+    </section>
+
+    <!-- Legenda -->
+    <section class="legend">
+      <div class="chips">
+        <span class="chip chip-ok">Venda informada</span>
+        <span class="chip chip-pending">🔍 A confirmar</span>
+        <span class="chip chip-none">❌ Sem venda</span>
+      </div>
+      <p class="note">Quando o preço de locação é uma faixa (ex.: <em>80–150</em>), indica variação por peça/período.</p>
+    </section>
+
+    <!-- Tabela -->
+    <section class="table-wrap" aria-labelledby="tabela-titulo">
+      <h3 id="tabela-titulo">Tabela detalhada</h3>
+
+      <div class="table-scroll">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th>Loja</th>
+              <th>Modelo</th>
+              <th>Preço Locação</th>
+              <th>Venda</th>
+              <th>Atendimento</th>
+              <th>Diferenciais</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-th="Loja">AirCloset Gramado</td>
+              <td data-th="Modelo">Diária</td>
+              <td data-th="Preço Locação">80–150</td>
+              <td data-th="Venda"><span class="chip chip-ok">Calça (R$ 90)</span></td>
+              <td data-th="Atendimento"><span class="tag tag-neutral">Seco/automatizado</span></td>
+              <td data-th="Diferenciais">E-book + lista exclusiva</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">ICloóset Gramado</td>
+              <td data-th="Modelo">Período fixo</td>
+              <td data-th="Preço Locação">157</td>
+              <td data-th="Venda"><span class="chip chip-pending">🔍 A confirmar</span></td>
+              <td data-th="Atendimento"><span class="tag tag-neutral">Automatizado</span></td>
+              <td data-th="Diferenciais">Simulação online</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">CabiniSolutions</td>
+              <td data-th="Modelo">Período variável</td>
+              <td data-th="Preço Locação">80–300</td>
+              <td data-th="Venda"><span class="chip chip-none">❌ Sem venda</span></td>
+              <td data-th="Atendimento"><span class="tag tag-cool">Seco/impaciente</span></td>
+              <td data-th="Diferenciais">Etiquetas individuais</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">Coat Casacos</td>
+              <td data-th="Modelo">Período</td>
+              <td data-th="Preço Locação">280 (9 dias)</td>
+              <td data-th="Venda"><span class="chip chip-pending">🔍 A confirmar</span></td>
+              <td data-th="Atendimento"><span class="tag tag-good">Personalizado</span></td>
+              <td data-th="Diferenciais">Atendimento direto</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">RentCold</td>
+              <td data-th="Modelo">Categoria</td>
+              <td data-th="Preço Locação">Variável</td>
+              <td data-th="Venda"><span class="chip chip-pending">🔍 A confirmar</span></td>
+              <td data-th="Atendimento"><span class="tag tag-mid">Médio</span></td>
+              <td data-th="Diferenciais">Experiência premium</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">N.Closet</td>
+              <td data-th="Modelo">Diária</td>
+              <td data-th="Preço Locação">90–150</td>
+              <td data-th="Venda"><span class="chip chip-pending">🔍 A confirmar</span></td>
+              <td data-th="Atendimento"><span class="tag tag-cool">Rápido/frio</span></td>
+              <td data-th="Diferenciais">Preço competitivo</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">Oficina de Inverno</td>
+              <td data-th="Modelo">Venda</td>
+              <td data-th="Preço Locação">—</td>
+              <td data-th="Venda"><span class="chip chip-ok">59–3.280</span></td>
+              <td data-th="Atendimento"><span class="tag tag-good">Detalhado</span></td>
+              <td data-th="Diferenciais">Variedade e qualidade</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note">* “A confirmar” indica que a loja não divulga preço de venda; “Sem venda” significa que não comercializa as peças, apenas aluga.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> — Benchmark Locação &amp; Venda.</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

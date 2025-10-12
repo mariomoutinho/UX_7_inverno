@@ -1,0 +1,236 @@
+/* CSS mínimo para esta página — mantêm o padrão do site (lv-styles.css) */
+:root{
+  /* Azul profundo já usado no site; ajuste se preferir outro tom */
+  --lb-bg: #0c3e57; /* ex.: pode usar var(--secondary) também */
+}
+/* Grids usando os mesmos espaçamentos visuais */
+.grid-products,
+.grid-banners{
+  display: grid;
+  gap: clamp(.75rem, 2vw, 1rem);
+}
+/* Hero com imagem de fundo específica desta página */
+/* ===== HERO: posição e zoom finos =====
+   - --hero-pos:   X% Y%  (posição do foco)
+   - --hero-size:  cover | contain | <percentual> auto  (zoom da imagem)
+*/
+.hero{
+  /* valores padrão (troque a imagem aqui se quiser) */
+  --hero-img: url('assets/imagem__h2__background.jpg');
+  --hero-pos: 50% 50%;
+  --hero-size: cover;          /* cover preenche (pode cortar). contain mostra tudo (pode sobrar borda). */
+  --hero-tint: rgba(28,79,109,.55); /* overlay azul */
+
+  color: #fff;
+  background:
+    linear-gradient(180deg, var(--hero-tint), var(--hero-tint)),
+    var(--hero-img) var(--hero-pos)/var(--hero-size) no-repeat,
+    linear-gradient(135deg,
+      color-mix(in srgb, var(--primary) 40%, #fff) 0%,
+      color-mix(in srgb, var(--secondary) 65%, #fff) 100%),
+    var(--muted);
+}
+
+/* Altura (mais área visível na vertical) */
+.hero--tall{ min-height: 52vh; }
+@media (min-width: 900px){
+  .hero--tall{ min-height: 62vh; }
+}
+
+/* ------ Posição do assunto (foco) ------ */
+.hero--top       { --hero-pos: 50% 50%; }
+.hero--center    { --hero-pos: 50% 50%; }
+.hero--bottom    { --hero-pos: 50% ; }     /* puxa para baixo, ideal para corpo inteiro */
+.hero--left      { --hero-pos: 18% 50%; }
+.hero--right     { --hero-pos: 82% 50%; }
+.hero--bottom-right { --hero-pos: 75% 85%; }
+.hero--bottom-left  { --hero-pos: 25% 85%; }
+
+/* ------ Zoom da imagem (percentual) ------
+   100% ≈ tamanho natural; menor que 100% = "afasta" (mostra mais);
+   maior que 100% = aproxima (corta mais).
+*/
+.hero--zoom-90 { --hero-size: 90% auto; }
+.hero--zoom-95 { --hero-size: 95% auto; }
+.hero--zoom-100{ --hero-size: 100% auto; }
+.hero--zoom-110{ --hero-size: 110% auto; }
+.hero--zoom-120{ --hero-size: 120% auto; }
+
+/* Mostrar a imagem inteira, sem cortes (pode sobrar borda) */
+.hero--contain{
+  --hero-size: contain;
+  background-color: #0c3e57; /* cor por trás caso sobrem áreas */
+}
+
+/* Intensidade do azul (já existente) */
+.hero--blue      { --hero-tint: rgba(28,79,109,.55); }
+.hero--more-blue { --hero-tint: rgba(28,79,109,.72); }
+.hero--less-blue { --hero-tint: rgba(28,79,109,.34); }
+
+/* Legibilidade do texto */
+.hero h2, .hero p{ text-shadow: 0 2px 8px rgba(0,0,0,.35); }
+
+
+/* Altura maior = mostra mais da foto na vertical */
+.hero--tall{ min-height: 52vh; }
+@media (min-width: 900px){
+  .hero--tall{ min-height: 62vh; }
+}
+
+/* Sobe o enquadramento (ajuda a aparecer a pessoa inteira) */
+.hero--top{ --hero-pos: 50% 18%; }
+
+/* Mostra a imagem por completo (menos “zoom”), pode sobrar borda */
+.hero--contain{
+  --hero-size: contain;
+  background-color: #0c3e57; /* cor de fundo por trás, caso sobrem áreas */
+}
+
+/* Intensidade do azul */
+.hero--blue{ --hero-tint: rgba(28,79,109,.55); }
+.hero--more-blue{ --hero-tint: rgba(28,79,109,.72); }
+.hero--less-blue{ --hero-tint: rgba(28,79,109,.34); }
+
+/* Legibilidade do texto sobre imagem */
+.hero h2, .hero p{
+  text-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
+.hero h2, .hero p{
+  text-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
+
+/* Produtos (3:4) */
+.grid-products{ grid-template-columns: repeat(12, 1fr); }
+.grid-products > .slot{ grid-column: span 6; }          /* 2 por linha */
+@media (min-width: 760px){ .grid-products > .slot{ grid-column: span 4; } }  /* 3/l */
+@media (min-width: 1100px){ .grid-products > .slot{ grid-column: span 3; } } /* 4/l */
+
+/* Banners (16:9) */
+.grid-banners{ grid-template-columns: repeat(12, 1fr); }
+.grid-banners > .slot{ grid-column: span 12; }
+@media (min-width: 900px){ .grid-banners > .slot{ grid-column: span 6; } }
+
+/* Slots de imagem (lugar para você trocar por <img class="fit">) */
+.slot{
+  position: relative;
+  aspect-ratio: 3/4;            /* moletom em pé */
+  background:
+    repeating-linear-gradient(45deg, rgba(52,156,199,.08) 0 10px, rgba(96,122,148,.08) 10px 20px),
+    #f7fbfd;
+  border: 2px dashed color-mix(in srgb, var(--secondary) 35%, #ffffff);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.slot.wide{ aspect-ratio: 16/9; } /* banners 16:9 */
+
+/* Etiquetas do slot (seguem estética das chips/tags do site) */
+.slot .badge{
+  position: absolute; top:.6rem; left:.6rem;
+  padding:.25rem .55rem; font-size:.78rem; font-weight:800;
+  color:#17364c; background:#e7f2fb;
+  border:1px solid #b8d6ee; border-radius:999px;
+}
+.slot figcaption{
+  position:absolute; left:.6rem; bottom:.6rem;
+  background:#fff; color:#0f3147; font-weight:700;
+  padding:.25rem .6rem; border-radius:10px;
+  border:1px solid color-mix(in srgb, var(--secondary) 20%, #fff);
+}
+
+/* Quando você substituir o slot por imagem */
+.fit{
+  width:100%; height:100%; object-fit:cover; object-position:center;
+  display:block; border-radius: var(--radius);
+}
+/* Slot com imagem de fundo */
+.slot.has-bg{
+  /* controles por variável */
+  --slot-bg: url('assets/produtos/exemplo.jpg');
+  --slot-pos: 50% 50%;        /* reposiciona o foco (x% y%) */
+  --slot-size: cover;         /* cover (corta um pouco) | contain (mostra tudo) | 100% auto (zoom manual) */
+  --slot-tint: rgba(0,0,0,.18); /* overlay para legibilidade do texto */
+
+  aspect-ratio: 3 / 4;        /* mantém proporção 3:4 */
+  min-height: auto;
+  border: 0;
+  background:
+    linear-gradient(180deg, var(--slot-tint), var(--slot-tint)),
+    var(--slot-bg) var(--slot-pos) / var(--slot-size) no-repeat #0b2f44;
+}
+
+/* Legibilidade dos textos quando há foto de fundo */
+.slot.has-bg figcaption{
+  color: #fff;
+  background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.55));
+}
+.slot.has-bg .badge{
+  background: rgba(255,255,255,.9);
+  border: 1px solid rgba(255,255,255,.55);
+  color: #0f3147;
+}
+/* Slot clicável */
+.slot[role="button"]{ cursor: zoom-in; }
+
+/* ===== Lightbox (tamanho real, sem upscaling) ===== */
+.lightbox{
+  /* o <dialog> já centraliza o conteúdo por padrão */
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.lightbox::backdrop{
+  background: rgba(10,28,44,.65);
+  backdrop-filter: blur(2px);
+}
+
+/* A moldura encolhe/expande conforme o tamanho natural da imagem */
+.lightbox__frame{
+  margin: 0;
+  display: inline-flex;           /* shrink-to-fit no conteúdo */
+  flex-direction: column;
+  background: var(--lb-bg);
+  border-radius: var(--radius-lg, 24px);
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,.35);
+
+  /* não deixa a moldura passar do viewport */
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 48px);
+}
+
+/* >>> AQUI é o pulo do gato: tamanho natural, sem esticar <<< */
+#lb-img{
+  display: block;
+  width: auto;                    /* usa largura natural */
+  height: auto;                   /* usa altura natural */
+  max-width: calc(100vw - 48px);  /* só reduz se for maior que a tela */
+  max-height: calc(100vh - 96px); /* deixa espaço p/ a legenda */
+  background: #000;               /* bordas pretas quando sobra espaço */
+}
+
+/* legenda ocupa a largura da imagem, sem forçar aumento */
+#lb-cap{
+  color: #e9eef6;
+  padding: .6rem .9rem;
+  font-weight: 600;
+  background: linear-gradient(180deg, rgba(0,0,0,0), var(--lb-bg));
+  text-wrap: balance;
+}
+
+.lightbox__close{
+  position: absolute;
+  top: .35rem; right: .35rem;
+  width: 40px; height: 40px;
+  border: 0; border-radius: 999px;
+  font-size: 28px; line-height: 1;
+  background: rgba(255,255,255,.9);
+  color: #0c3047;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+}
+.lightbox__close:hover{ transform: translateY(-1px); }
+.lightbox__close:active{ transform: translateY(0); }
+
+/* cursor de clique no slot */
+.slot[role="button"]{ cursor: zoom-in; }

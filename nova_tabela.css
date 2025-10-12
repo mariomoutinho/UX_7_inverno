@@ -1,0 +1,309 @@
+/* ============================
+   Paleta & Variáveis
+================================ */
+:root{
+  --primary: #349cc7;
+  --secondary: #607a94;
+  --muted: #dde3e2;
+  --white: #ffffff;
+  --text: #1e2a34;
+  --shadow: 0 8px 28px rgba(0,0,0,.08);
+  --radius: 16px;
+  --radius-lg: 24px;
+  --space: clamp(0.75rem, 1.2vw, 1.25rem);
+  --space-lg: clamp(1rem, 2vw, 2rem);
+}
+
+/* Reset básico e acessibilidade */
+* { box-sizing: border-box; }
+html,body { height: 100%; }
+body{
+  margin: 0;
+  font: 16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans";
+  color: var(--text);
+  background: linear-gradient(180deg, var(--muted) 0%, #eef3f3 100%);
+}
+img{ max-width: 100%; display: block; }
+a{ color: var(--primary); text-decoration: none; }
+a:hover{ text-decoration: underline; }
+h1,h2,h3,h4{ line-height: 1.2; margin: 0 0 .5rem; }
+p{ margin: 0 0 1rem; }
+em{ font-style: italic; }
+ul{ margin: 0; padding: 0 0 0 1rem; }
+
+.skip-link{
+  position: absolute; left: -9999px; top: auto;
+}
+.skip-link:focus{
+  left: 8px; top: 8px; background: var(--white);
+  color: var(--text); padding: .5rem .75rem; border-radius: 8px;
+  outline: 2px solid var(--primary);
+}
+.topbar strong {
+  font-family: 'Montserrat', Arial, sans-serif;
+  font-weight: 800; /* ExtraBold */
+}
+/* Topbar */
+.topbar {
+  position: relative;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(30,49,90,0.55) 0%, rgba(52,156,199,0.55) 100%), 
+              url(assets/irmaos.jpg) center 40%/cover no-repeat;
+  color:#f8f9fa;
+  padding: 2.5rem .75rem 2.5rem .75rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+/* Header & Nav */
+.site-header{
+  display: grid; grid-template-columns: 1fr auto;
+  gap: var(--space);
+  align-items: center;
+  background: var(--white);
+  padding: var(--space-lg);
+  border-bottom: 2px solid color-mix(in srgb, var(--secondary) 20%, #fff);
+}
+.brand{ display: flex; align-items: center; gap: .75rem; }
+.logo{
+  width: 48px; height: 48px; border-radius: 50%;
+  display: grid; place-items: center;
+  color: var(--white);
+  background: radial-gradient(75% 75% at 30% 30%, var(--primary), var(--secondary));
+  box-shadow: var(--shadow);
+  font-size: 1.25rem;
+}
+.brand-text h1{ font-size: clamp(1.15rem, 2.4vw, 1.6rem); margin: 0; }
+.brand-text .sub{ margin: .15rem 0 0; color: #476078; font-size: .95rem; }
+
+.nav .menu{
+  list-style: none; display: flex; gap: .5rem;
+  margin: 0; padding: 0;
+}
+.nav a{
+  display: inline-block;
+  padding: .6rem .9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #183142;
+}
+.nav a:hover{ background: color-mix(in srgb, var(--muted) 60%, #fff); text-decoration: none; }
+.nav a.active:hover.btn-primary { background: var(--primary); color: var(--white); }
+
+/* Hero */
+.hero{
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  margin: var(--space-lg);
+  padding: clamp(1.25rem, 4vw, 2.25rem);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--primary) 40%, #fff) 0%, color-mix(in srgb, var(--secondary) 65%, #fff) 100%),
+    var(--muted);
+  color: #0f2533;
+  box-shadow: var(--shadow);
+}
+.hero-inner{ max-width: 900px; }
+.hero h2{ font-size: clamp(1.3rem, 4vw, 2rem); margin-bottom: .25rem; }
+.hero p{ opacity: .95; }
+
+/* Chips e tags */
+.chips{ display: flex; gap: .5rem; flex-wrap: wrap; margin: 0 var(--space-lg); }
+.chip{
+  display: inline-block;
+  padding: .35rem .6rem;
+  border-radius: 999px;
+  font-size: .85rem;
+  border: 1px solid color-mix(in srgb, var(--secondary) 25%, #fff);
+  background: #fff;
+  color: #183142;
+}
+.chip-ok{ background: #e8f7f1; color: #176a4f; border-color: #b9e8d6; }
+.chip-pending{ background: #fff7e6; color: #8a5b00; border-color: #f2d6a2; }
+.chip-none{ background: #fdecee; color: #8a1f2a; border-color: #f2b5be; }
+
+.tag{
+  display: inline-block;
+  padding: .25rem .5rem;
+  border-radius: 999px;
+  font-size: .8rem;
+  border: 1px solid color-mix(in srgb, var(--secondary) 25%, #fff);
+  background: #fff;
+}
+.tag-good{ background: #e8f7f1; color: #176a4f; border-color: #b9e8d6; }
+.tag-mid{ background: #e7f2fb; color: #144366; border-color: #b8d6ee; }
+.tag-cool{ background: #edf1f5; color: #364a5d; }
+.tag-neutral{ background: #f4f7f8; color: #3b556a; }
+
+.legend{ padding: var(--space-lg) var(--space-lg) 0; }
+.note{ color: #345268; margin: .5rem var(--space-lg); font-size: .95rem; }
+
+/* Tabela */
+.table-wrap{ padding: var(--space-lg); }
+.table-wrap h3{ margin: 0 0 .75rem; }
+.table-scroll{
+  overflow: auto;
+  background: var(--white);
+  border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--secondary) 20%, #fff);
+  box-shadow: var(--shadow);
+}
+/* Alinha o botão "Ver locação" como uma tabulação à direita da célula */
+@media (min-width: 701px){
+  .cmp-table td[data-th="Preço Locação"]{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .cmp-table td[data-th="Preço Locação"] .btn-mini{
+    margin-left: auto; /* empurra o botão para a borda direita da célula */
+  }
+}
+/* Remove a linha sutil (border-bottom) que aparece na coluna "Preço Locação" */
+@media (min-width: 701px){
+  .cmp-table td[data-th="Preço Locação"]{
+    border-bottom: none !important;        /* remove a risca dentro da célula */
+  }
+}
+
+.cmp-table{
+  width: 100%; border-collapse: collapse; min-width: 880px;
+}
+.cmp-table thead th{
+  position: sticky; top: 0;
+  background: color-mix(in srgb, var(--muted) 25%, #fff);
+  color: #0f3147;
+  text-align: left;
+  padding: .8rem .9rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--muted) 55%, #fff);
+}
+.cmp-table tbody td{
+  padding: .8rem .9rem; vertical-align: top;
+  border-bottom: 1px solid color-mix(in srgb, var(--muted) 60%, #fff);
+}
+.cmp-table tbody tr:nth-child(odd){
+  background: color-mix(in srgb, var(--muted) 85%, #fff);
+}
+
+/* Layout responsivo para tabela empilhada (opcional) */
+@media (max-width: 700px){
+  .cmp-table, .cmp-table thead, .cmp-table tbody, .cmp-table th, .cmp-table td, .cmp-table tr { display: block; }
+  .cmp-table thead{ display: none; }
+  .cmp-table tr{ border-bottom: 1px solid color-mix(in srgb, var(--muted) 60%, #fff); }
+  .cmp-table td{
+    padding: .6rem .9rem .4rem;
+    display: grid; grid-template-columns: 130px 1fr; gap: .5rem;
+  }
+  .cmp-table td::before{
+    content: attr(data-th);
+    font-weight: 700; color: #17364c;
+  }
+}
+
+/* Rodapé */
+.site-footer{
+  text-align: center;
+  color: #3b556a;
+  padding: 1.25rem;
+}
+
+/* Print */
+@media print{
+  body{ background: white; }
+  .topbar, .nav{ display: none; }
+  .hero{ box-shadow: none; border: 1px solid #ddd; }
+  .table-scroll{ box-shadow: none; border: 1px solid #ccc; }
+}
+.has-branch details{
+  position: relative;
+}
+.has-branch summary{
+  list-style: none;
+  display: inline-block;
+  padding: .6rem .9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #183142;
+  cursor: pointer;
+}
+.has-branch summary:hover{ background: color-mix(in srgb, var(--muted) 60%, #fff); }
+.has-branch summary::-webkit-details-marker{ display: none; }
+
+/* Dropdown (desktop) */
+.has-branch .dropdown{
+  position: absolute;
+  top: calc(100% + .5rem);
+  left: 0;
+  background: var(--white);
+  border: 1px solid color-mix(in srgb, var(--secondary) 20%, #fff);
+  box-shadow: var(--shadow);
+  border-radius: var(--radius);
+  min-width: 260px;
+  padding: .25rem;
+  display: none;
+  z-index: 20;
+}
+.has-branch details[open] > .dropdown{ display: block; }
+.dropdown li{ list-style: none; }
+.dropdown a{
+  display: block; padding: .65rem .8rem; border-radius: 10px;
+  color: #1b2c3a; font-weight: 500;
+}
+.dropdown a:hover{ background: color-mix(in srgb, var(--muted) 60%, #fff); }
+/* Deixa a tag “Atendimento” claramente clicável */
+.tag-click{ cursor:pointer; appearance:none; -webkit-appearance:none; }
+.tag-click:focus{ outline:2px solid var(--primary); outline-offset:2px; }
+/* Rolagem suave para âncoras */
+html { scroll-behavior: smooth; }
+
+/* Se o topo tiver altura relevante, garante que o alvo não fique escondido */
+#atendimento-titulo { scroll-margin-top: 96px; } /* ajuste se precisar */
+
+/* Link no <th> com aparência de título */
+.cmp-table thead th .th-link{
+  color: inherit;
+  text-decoration: none;
+}
+.cmp-table thead th .th-link:hover{
+  text-decoration: underline;
+}
+/* Hero com imagem de fundo e overlay azul, no estilo do topbar */
+.hero.hero--metodologia{
+  position: relative;
+  color: #f8f9fa;
+  /* mesmo conceito do topbar: gradiente azul + imagem */
+  background:
+    linear-gradient(180deg, rgba(30,49,90,0.55) 0%, rgba(52,156,199,0.55) 100%),
+    url('/assets/metodologia__background__grafico.jpg') center 40%/cover no-repeat;
+}
+
+/* Cartão de metodologia levemente translúcido sobre a foto */
+/* Remove o retângulo do bloco de metodologia e ajusta a leitura sobre a foto */
+.hero.hero--metodologia .hero-method{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  padding: .25rem 0 0 !important;
+}
+
+.hero.hero--metodologia .hero-method-title{
+  color: #fff;               /* título em branco */
+}
+
+.hero.hero--metodologia .hero-method-list{
+  color: #eaf3f7;            /* texto mais claro */
+}
+.hero.hero--metodologia .hero-method-list li::marker{
+  color: #cfe8f5;            /* marcadores azulados */
+}
+
+/* (opcional) leve sombra para contraste em fundos mais claros */
+.hero.hero--metodologia h2,
+.hero.hero--metodologia .hero-method *{
+  text-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
