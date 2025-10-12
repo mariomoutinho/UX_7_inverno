@@ -6,7 +6,7 @@
   <title>Tabela da Concorrência — Guia do Frio</title>
   <meta name="description" content="Tabela consolidada de locação e venda por loja e categoria, com preços e observações." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="nova_tabela.css" />
+<link rel="stylesheet" href="nova_tabela.css?v=2025-10-12">
 
   <!-- estilos mínimos para botões/modais + ajustes pedidos -->
   <style>
@@ -41,6 +41,36 @@
     .pill{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;padding:.25rem .5rem;border-radius:999px;border:1px solid color-mix(in srgb,var(--secondary) 30%,#fff);background:#fff}
     @media (max-width:640px){.form .row{grid-template-columns:1fr}}
   </style>
+<style>
+  :root{
+    --primary:#349cc7; --secondary:#9ccbe0; --muted:#e9f3f8;
+    --shadow:0 8px 24px rgba(0,0,0,.08);
+  }
+  .table-scroll{overflow-x:auto}
+
+  /* Fallback responsivo da tabela em telas pequenas */
+  @media (max-width: 768px){
+    .cmp-table{width:100%; border-collapse:collapse}
+    .cmp-table thead{display:none}
+    .cmp-table, .cmp-table tbody, .cmp-table tr, .cmp-table td{
+      display:block; width:100%;
+    }
+    .cmp-table tr{
+      margin:0 0 .8rem;
+      border:1px solid #e5eef5; border-radius:12px; overflow:hidden;
+      background:#fff;
+    }
+    .cmp-table td{
+      padding:.75rem 1rem; border-bottom:1px solid #e9eef6;
+    }
+    .cmp-table td:last-child{border-bottom:0}
+    .cmp-table td::before{
+      content:attr(data-th); display:block;
+      font-weight:800; font-size:.85rem; opacity:.75; margin-bottom:.25rem;
+    }
+  }
+</style>
+
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -215,25 +245,26 @@
             </tr>
 
             <tr>
-              <td data-th="Loja">RentCold</td>
-              <td data-th="Modelo">Categoria</td>
-              <td data-th="Preço Locação">Variável
-                <button class="btn-mini ghost" data-rent-store="RentCold"
-          aria-label="Ver opções de locação RentCold">
-    <span class="dot"></span> Ver locação
-  </button>
+  <td data-th="Loja">RentCold</td>
+  <td data-th="Modelo">Categoria</td>
+  <td data-th="Preço Locação">
+    Variável
+    <button class="btn-mini ghost" data-rent-store="RentCold"
+      aria-label="Ver opções de locação RentCold">
+      <span class="dot"></span> Ver locação
+    </button>
+  </td>
   <td data-th="Venda">
-  <span class="chip chip-ok">🔍 Venda informada</span>
-  <button class="btn-mini" data-store="RentCold" aria-label="Ver opções de venda RentCold">
-    <span class="dot"></span> Ver opções
-  </button>
-</td>
+    <span class="chip chip-ok">🔍 Venda informada</span>
+    <button class="btn-mini" data-store="RentCold"
+      aria-label="Ver opções de venda RentCold">
+      <span class="dot"></span> Ver opções
+    </button>
+  </td>
+  <td data-th="Atendimento"><span class="tag tag-mid">Médio</span></td>
+  <td data-th="Diferenciais">Experiência premium</td>
+</tr>
 
-</td>
-
-              <td data-th="Atendimento"><span class="tag tag-mid">Médio</span></td>
-              <td data-th="Diferenciais">Experiência premium</td>
-            </tr>
 
             <tr>
               <td data-th="Loja">Oficina de Inverno</td>
@@ -702,3 +733,4 @@ function openRent(store){
   </script>
 </body>
 </html>
+
