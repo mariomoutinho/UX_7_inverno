@@ -191,6 +191,73 @@
 
 <script>
   <script>
+    <script>
+(function(){
+  const dlg = document.getElementById('lb');
+  const img = document.getElementById('lb-img');
+  const cap = document.getElementById('lb-cap');
+  const closeBtn = dlg.querySelector('.lightbox__close');
+  const items = Array.from(document.querySelectorAll('.grid-products .openable'));
+  let current = -1;
+
+  function getFullSrc(fig){
+    if (fig.dataset.full) return fig.dataset.full.trim();
+    const css = getComputedStyle(fig).getPropertyValue('--slot-bg');
+    const m = css && css.match(/url\((['"]?)(.*?)\1\)/);
+    if (m && m[2]) return m[2];
+    const pic = fig.querySelector('img');
+    return pic?.src || '';
+  }
+  function getCaption(fig){
+    const c = fig.querySelector('figcaption');
+    return c ? c.textContent.trim() : '';
+  }
+
+  function openAt(index){
+    const fig = items[index]; if (!fig) return;
+    const src = getFullSrc(fig); if (!src) return;
+
+    img.src = src;
+    img.alt = getCaption(fig) || 'Imagem ampliada';
+    cap.textContent = getCaption(fig);
+
+    current = index;
+
+    // *** Bloqueia o scroll do fundo no mobile ***
+    document.documentElement.style.overflow = 'hidden';
+
+    if (typeof dlg.showModal === 'function') dlg.showModal();
+    else dlg.setAttribute('open','');
+  }
+
+  function close(){
+    if (typeof dlg.close === 'function') dlg.close();
+    else dlg.removeAttribute('open');
+
+    // *** Libera o scroll novamente ***
+    document.documentElement.style.overflow = '';
+
+    current = -1;
+  }
+
+  items.forEach((fig, idx) => {
+    fig.addEventListener('click', () => openAt(idx));
+    fig.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openAt(idx); }
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+  dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
+  window.addEventListener('keydown', (e) => {
+    if (!dlg.open) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight'){ e.preventDefault(); openAt((current + 1) % items.length); }
+    if (e.key === 'ArrowLeft'){ e.preventDefault(); openAt((current - 1 + items.length) % items.length); }
+  });
+})();
+</script>
+
 (function(){
   const dlg = document.getElementById('lb');
   const img = document.getElementById('lb-img');
