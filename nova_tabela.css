@@ -307,3 +307,164 @@ html { scroll-behavior: smooth; }
 .hero.hero--metodologia .hero-method *{
   text-shadow: 0 1px 2px rgba(0,0,0,.25);
 }
+
+/* ============================
+   RESPONSIVIDADE MOBILE (nova_tabela.html)
+   — cole no final do nova_tabela.css
+   — sem JavaScript
+===============================*/
+
+/* 0) Ajustes gerais */
+@media (max-width: 540px){
+  :root{
+    --space: .9rem;
+    --space-lg: 1rem;
+  }
+  .table-wrap{ padding: var(--space); }
+  .legend{ padding: var(--space) var(--space) 0; }
+  .note{ margin: .5rem var(--space); font-size: .93rem; }
+}
+
+/* 1) Topbar mais enxuta em telas pequenas */
+@media (max-width: 640px){
+  .topbar{
+    min-height: 180px;
+    padding: 1.25rem .75rem;
+    background-position: center 35%;
+  }
+}
+
+/* 2) Header e Navegação
+   - empilha marca + nav
+   - menu horizontal com rolagem (estilo chips) */
+@media (max-width: 900px){
+  .site-header{
+    grid-template-columns: 1fr;
+    gap: .6rem;
+    padding: var(--space);
+  }
+  .brand{ justify-content: space-between; }
+  .nav{ overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nav .menu{
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: .4rem;
+    padding-bottom: .25rem;
+    margin-bottom: -.25rem;
+  }
+  /* esconde a barra em iOS/Android sem quebrar acessibilidade */
+  .nav::-webkit-scrollbar{ display: none; }
+}
+
+/* 3) Dropdowns do menu: viram estáticos no mobile (sem posicionamento absoluto) */
+@media (max-width: 900px){
+  .has-branch{ position: static; }
+  .has-branch .dropdown{
+    position: static;
+    min-width: 0;
+    width: auto;
+    margin-top: .25rem;
+    box-shadow: none;
+  }
+}
+
+/* 4) Hero (metodologia): tipografia e respiro */
+@media (max-width: 640px){
+  .hero{
+    margin: var(--space);
+    padding: clamp(.9rem, 4.5vw, 1.4rem);
+    border-radius: 14px;
+  }
+  .hero h2{ font-size: clamp(1.2rem, 5.5vw, 1.6rem); }
+  .hero p, .hero .hero-method-list{ font-size: .95rem; }
+  .hero.hero--metodologia{
+    background-position: center 38%;
+  }
+}
+
+/* 5) Tabela principal
+   - já há versão empilhada; estes ajustes refinam o layout
+   - melhora leitura e posiciona botões dentro das células */
+@media (max-width: 700px){
+  .table-scroll{
+    border-radius: 12px;
+  }
+  .cmp-table td{
+    /* col 1 = rótulo (data-th); col 2 = conteúdo */
+    grid-template-columns: 120px 1fr;
+    gap: .45rem .6rem;
+    word-break: break-word;
+  }
+  /* célula de Preço de Locação com botão à direita */
+  .cmp-table td[data-th="Preço Locação"]{
+    align-items: center;
+    grid-template-columns: 120px 1fr; /* rótulo + conteúdo+botão */
+  }
+  .cmp-table td[data-th="Preço Locação"] .btn-mini{
+    justify-self: end;
+    margin-left: .5rem;
+  }
+  /* célula de Venda também com botão alinhado */
+  .cmp-table td[data-th="Venda"]{
+    align-items: center;
+  }
+  .cmp-table td[data-th="Venda"] .btn-mini{
+    justify-self: start; /* fica logo após o conteúdo */
+    margin-left: .5rem;
+  }
+}
+
+/* 6) Botões: alvos maiores para toque */
+@media (max-width: 700px){
+  .btn-mini{
+    padding: .55rem .75rem;
+    font-size: .9rem;
+  }
+}
+
+/* 7) Tabela "Experiência de Atendimento" — mesma responsividade */
+@media (max-width: 700px){
+  section#atendimento-titulo ~ .table-scroll .cmp-table td{
+    grid-template-columns: 120px 1fr;
+  }
+}
+
+/* 8) Modais (quando abertos por CSS/JS do próprio arquivo):
+   100% da tela no mobile, sem bordas e com cabeçalho fixo */
+@media (max-width: 640px){
+  .modal-backdrop{ padding: 0; }
+  .modal{
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+  .modal header{
+    position: sticky; top: 0; z-index: 1;
+    background: #fff;
+  }
+  .modal .list{
+    max-height: none;
+    padding: .75rem .75rem 1rem;
+  }
+  .form .row{ grid-template-columns: 1fr; }
+}
+
+/* 9) Acessibilidade: foco visível no teclado (mobile/desktop) */
+@media (any-pointer: coarse){
+  .btn-mini, .tag-click, .nav a, .dropdown a{
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+:focus-visible{
+  outline: 2px solid color-mix(in srgb, var(--primary) 65%, #fff);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* 10) Pequenos refinamentos de espaçamento para mobile */
+@media (max-width: 540px){
+  .chips{ margin: 0 var(--space); }
+  .site-footer{ padding: 1rem; }
+}
