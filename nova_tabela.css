@@ -31,6 +31,169 @@ p{ margin: 0 0 1rem; }
 em{ font-style: italic; }
 ul{ margin: 0; padding: 0 0 0 1rem; }
 
+/* ============================
+   iOS / Safari MOBILE FIXES
+   — cole no final do nova_tabela.css
+   — sem JavaScript
+===============================*/
+
+/* 0) Base iOS: respeitar safe-areas e impedir auto-zoom agressivo */
+html{
+  -webkit-text-size-adjust: 100%;
+}
+:root{
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --safe-left: env(safe-area-inset-left);
+  --safe-right: env(safe-area-inset-right);
+}
+
+/* 1) Alturas com viewport moderno (sem “salto” dos toolbars do Safari) */
+body{
+  min-height: 100vh;        /* fallback */
+  min-height: 100svh;       /* iOS 15.4+ “small viewport” */
+  min-height: 100dvh;       /* viewport dinâmico moderno */
+}
+
+/* 2) Topbar com safe-area */
+@media (max-width: 640px){
+  .topbar{
+    padding-top: calc(1rem + var(--safe-top));
+    padding-bottom: 1.25rem;
+    min-height: 180px;
+    background-position: center 35%;
+  }
+}
+
+/* 3) Header + Menu rolável estilo “chips” (com inércia no iOS) */
+@media (max-width: 900px){
+  .site-header{
+    grid-template-columns: 1fr;
+    gap: .6rem;
+    padding: var(--space);
+  }
+  .nav{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+  }
+  .nav .menu{
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: .4rem;
+    padding-bottom: .25rem;
+    margin-bottom: -.25rem;
+  }
+  .nav::-webkit-scrollbar{ display: none; }
+  .has-branch{ position: static; }
+  .has-branch .dropdown{
+    position: static; min-width: 0; width: auto; margin-top: .25rem; box-shadow: none;
+  }
+  .has-branch summary{ -webkit-tap-highlight-color: transparent; }
+}
+
+/* 4) Hero (metodologia): tipografia e respiro em iPhone */
+@media (max-width: 640px){
+  .hero{
+    margin: var(--space);
+    padding: clamp(.9rem, 4.5vw, 1.4rem);
+    border-radius: 14px;
+  }
+  .hero h2{ font-size: clamp(1.2rem, 5.5vw, 1.6rem); }
+  .hero p, .hero .hero-method-list{ font-size: .95rem; }
+  .hero.hero--metodologia{ background-position: center 38%; }
+}
+
+/* 5) Tabela: rolagem com inércia e sticky robusto no iOS */
+.table-scroll{
+  -webkit-overflow-scrolling: touch; /* momentum scroll */
+}
+.cmp-table thead{
+  transform: translateZ(0);          /* ajuda sticky no iOS */
+  will-change: transform;
+}
+.cmp-table thead th{
+  position: sticky; top: 0; z-index: 2;
+}
+
+/* Layout empilhado (já existe) + refinamentos no iPhone */
+@media (max-width: 700px){
+  .table-scroll{ border-radius: 12px; }
+  .cmp-table td{
+    grid-template-columns: 120px 1fr;
+    gap: .45rem .6rem;
+    word-break: break-word;
+  }
+  /* botões dentro das células no mobile */
+  .cmp-table td[data-th="Preço Locação"]{ align-items: center; }
+  .cmp-table td[data-th="Preço Locação"] .btn-mini{ justify-self: end; margin-left: .5rem; }
+  .cmp-table td[data-th="Venda"]{ align-items: center; }
+  .cmp-table td[data-th="Venda"] .btn-mini{ margin-left: .5rem; }
+}
+
+/* Fallback para navegadores sem sticky confiável (iOS muito antigos) */
+@supports not (position: sticky){
+  .cmp-table thead th{ position: static; }
+}
+
+/* 6) Inputs: evitar zoom ao focar (iOS exige >=16px) */
+@media (max-width: 640px){
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="number"]{
+    font-size: 16px;
+  }
+}
+
+/* 7) Modais tela cheia no iPhone + safe-areas + inércia */
+@media (max-width: 640px){
+  .modal-backdrop{
+    padding: 0;
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+    overscroll-behavior: contain;       /* evita body rolar atrás */
+  }
+  .modal{
+    width: 100vw;
+    height: 100vh; height: 100svh; height: 100dvh;
+    border-radius: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+  }
+  .modal header{
+    position: sticky; top: 0; z-index: 3; background: #fff;
+    padding-top: calc(1rem + var(--safe-top));
+  }
+  .modal .list{
+    max-height: none;
+    padding: .75rem .75rem 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .form .row{ grid-template-columns: 1fr; }
+}
+
+/* 8) Toque e foco (UX) */
+@media (any-pointer: coarse){
+  .btn-mini, .tag-click, .nav a, .dropdown a{ -webkit-tap-highlight-color: transparent; }
+}
+:focus-visible{
+  outline: 2px solid color-mix(in srgb, var(--primary) 65%, #fff);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* 9) Rodapé com safe-area no iPhone */
+@media (max-width: 640px){
+  .site-footer{
+    padding-bottom: calc(1rem + var(--safe-bottom));
+  }
+}
+
 .skip-link{
   position: absolute; left: -9999px; top: auto;
 }
