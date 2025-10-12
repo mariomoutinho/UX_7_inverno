@@ -1,470 +1,704 @@
-/* ============================
-   Paleta & Variáveis
-================================ */
-:root{
-  --primary: #349cc7;
-  --secondary: #607a94;
-  --muted: #dde3e2;
-  --white: #ffffff;
-  --text: #1e2a34;
-  --shadow: 0 8px 28px rgba(0,0,0,.08);
-  --radius: 16px;
-  --radius-lg: 24px;
-  --space: clamp(0.75rem, 1.2vw, 1.25rem);
-  --space-lg: clamp(1rem, 2vw, 2rem);
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tabela da Concorrência — Guia do Frio</title>
+  <meta name="description" content="Tabela consolidada de locação e venda por loja e categoria, com preços e observações." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="nova_tabela.css" />
+
+  <!-- estilos mínimos para botões/modais + ajustes pedidos -->
+  <style>
+    .btn-mini{display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .65rem;border-radius:999px;border:1.5px solid var(--primary);background:#fff;color:#0f3147;font-weight:700;font-size:.85rem;box-shadow:0 3px 10px rgba(0,0,0,.06);cursor:pointer}
+    .btn-mini:hover{background:color-mix(in srgb,var(--muted) 65%,#fff)}
+    .btn-mini.ghost{border-color:color-mix(in srgb,var(--secondary) 40%,#fff);color:#183142}
+    .btn-mini .dot{width:.45rem;height:.45rem;border-radius:999px;background:var(--primary)}
+
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem}
+    .modal-backdrop.show{display:flex}
+    .modal{width:min(760px,96vw);background:#fff;border-radius:16px;border:1px solid color-mix(in srgb,var(--secondary) 20%,#fff);box-shadow:var(--shadow);overflow:hidden}
+    .modal header{display:flex;align-items:center;justify-content:space-between;padding:1rem 1.1rem;border-bottom:1px solid color-mix(in srgb,var(--muted) 55%,#fff)}
+    .modal h4{margin:0;font-size:1.05rem;color:#0f3147}
+
+    /* Lista agora é rolável e com estilos para nota/seção */
+    .modal .list{list-style:none;margin:0;padding:.75rem;max-height:clamp(320px,70vh,720px);overflow-y:auto;padding-right:.5rem;scrollbar-gutter:stable}
+    .modal .list li{display:flex;align-items:center;justify-content:space-between;gap:.75rem;border:1px solid color-mix(in srgb,var(--secondary) 22%,#fff);background:#fff;border-radius:12px;padding:.65rem .8rem;margin:.45rem 0}
+    .modal .list .price{font-weight:800;color:#17364c}
+    .modal .list .li-section{justify-content:flex-start;font-weight:800;background:#f7fbfd;color:#0f3147}
+    .modal .list .li-note{justify-content:flex-start;color:#476078}
+    .modal .empty{text-align:center;color:#57718a;padding:.9rem 0}
+
+    /* Form do modal de Vendas (permanece igual) */
+    .modal .form{border-top:1px solid color-mix(in srgb,var(--muted) 55%,#fff);padding:.85rem .9rem 1rem;background:linear-gradient(180deg,color-mix(in srgb,var(--muted) 35%,#fff),#fff)}
+    .form .hint{font-size:.85rem;color:#476078;margin:0 0 .6rem}
+    .form .row{display:grid;gap:.6rem;grid-template-columns:1fr 180px auto;align-items:center}
+    .form input[type="text"]{width:100%;padding:.6rem .7rem;border-radius:10px;border:1px solid color-mix(in srgb,var(--secondary) 25%,#fff);font:inherit;color:#0f3147;background:#fff}
+    .form .actions{display:flex;gap:.5rem;justify-content:flex-end;margin-top:.65rem}
+    .btn-add{padding:.6rem .9rem;border-radius:10px;border:2px solid var(--primary);background:var(--primary);color:#fff;font-weight:800;cursor:pointer;box-shadow:0 6px 16px rgba(52,156,199,.2)}
+    .btn-add:hover{background:color-mix(in srgb,var(--primary) 88%,#fff)}
+    .btn-clear{padding:.6rem .9rem;border-radius:10px;border:2px solid color-mix(in srgb,var(--secondary) 40%,#fff);background:#fff;color:#183142;font-weight:700;cursor:pointer}
+    .pill{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;padding:.25rem .5rem;border-radius:999px;border:1px solid color-mix(in srgb,var(--secondary) 30%,#fff);background:#fff}
+    @media (max-width:640px){.form .row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <span class="snow"><img src="assets/logo_7_invernos.jpg" alt=""></span>
+    <strong>Fica frio que a gente te esquenta</strong>
+    <span class="snow"></span>
+  </div>
+
+  <!-- Cabeçalho e Navegação -->
+  <header class="site-header">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><img src="assets/logo_7_invernos.jpg" alt=""></div>
+      <div class="brand-text">
+        <h1>Guia do Frio</h1>
+        <p class="sub">Para quem parte do calor do Recife</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Principal">
+      <ul class="menu">
+        <li><a href="index.html">Início</a></li>
+
+        <li class="has-branch">
+          <details>
+            <summary>Dicas Essenciais</summary>
+            <ul class="dropdown">
+              <li><a href="dicas.html">Panorama Geral</a></li>
+              <li><a href="camadas.html">Sistema de Camadas</a></li>
+              <li><a href="checklist.html">Checklist de Bagagem</a></li>
+              <li><a href="saude-pele.html">Saúde, Pele & Hidratação</a></li>
+            </ul>
+          </details>
+        </li>
+
+        <li class="has-branch">
+          <details>
+            <summary>Destinos</summary>
+            <ul class="dropdown">
+              <li><a href="destinos/patagonia.html">Patagônia (−5 °C a 5 °C)</a></li>
+              <li><a href="destinos/ushuaia.html">Ushuaia (−10 °C a 2 °C)</a></li>
+              <li><a href="destinos/bariloche.html">Bariloche (−2 °C a 7 °C)</a></li>
+              <li><a href="destinos/europa-inverno.html">Europa no Inverno</a></li>
+            </ul>
+          </details>
+        </li>
+
+        <li><a href="produtos-exclusivos.html">Produtos Exclusivos</a></li>
+        <li><a href="locacao-vendas.html">Locação e Vendas</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li><a href="tabela.html" class="active">Tabela da Concorrência</a></li>
+        <li><a href="insights.html">Insights</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="conteudo">
+    <!-- Hero -->
+    <section class="hero hero--metodologia">
+      <div class="hero-inner">
+  <h2>Tabela da Concorrência</h2>
+
+  <div class="hero-method" role="note" aria-label="Metodologia">
+    <div class="hero-method-title">Metodologia</div>
+    <ul class="hero-method-list">
+      <li>Pesquisa direta via WhatsApp, Instagram e sites oficiais.</li>
+      <li>Avaliação dos seguintes critérios:
+        <ul>
+          <li>Tempo de resposta ao cliente</li>
+          <li>Modelos de locação (por diária, período, categoria)</li>
+          <li>Experiência do cliente</li>
+          <li>Preços de locação e valores de venda</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+    </section>
+
+    <!-- Legenda -->
+    <section class="legend">
+      <div class="chips">
+        <span class="chip chip-ok">🔍 Venda informada</span>
+        
+        <span class="chip chip-none">❌ Sem venda</span>
+      </div>
+      <p class="note">Quando o preço de locação é uma faixa (ex.: <em>80–150</em>), indica variação por peça/período.</p>
+    </section>
+
+    <!-- ============== TABELA PRINCIPAL ============== -->
+    <section class="table-wrap" aria-labelledby="tabela-titulo">
+      <h3 id="tabela-titulo">Tabela detalhada</h3>
+
+      <div class="table-scroll">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th>Loja</th>
+              <th>Modelo</th>
+              <th>Preço Locação</th>
+              <th>Venda</th>
+              <th><a href="#atendimento-titulo" class="th-link">Atendimento</a></th>              <th>Diferenciais</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-th="Loja">AirCloset Gramado</td>
+              <td data-th="Modelo">Diária</td>
+              <td data-th="Preço Locação">
+                R$ 80-100-140
+                <button class="btn-mini ghost" data-rent-store="AirCloset Gramado" aria-label="Ver opções de locação AirCloset Gramado">
+                  <span class="dot"></span> Ver locação
+                </button>
+              </td>
+              <td data-th="Venda">
+                <span class="chip chip-ok">🔍 Venda informada</span>
+                <button class="btn-mini" data-store="AirCloset Gramado" aria-label="Ver opções de venda AirCloset Gramado">
+                  <span class="dot"></span> Ver opções
+                </button>
+              </td>
+              <td data-th="Atendimento">
+                <span class="tag tag-neutral">Seco/automatizado</span>
+                
+            </td>              <td data-th="Diferenciais">E-book + lista exclusiva</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">IClooset Gramado</td>
+              <td data-th="Modelo">Período fixo</td>
+              <td data-th="Preço Locação">R$ 97-157
+                <button class="btn-mini ghost" data-rent-store="ICloóset Gramado"
+          aria-label="Ver opções de locação ICloóset Gramado">
+                 <span class="dot"></span> Ver locação
+                    </button>
+              </td>
+              <td data-th="Venda"><span class="chip chip-none">❌ Sem venda</span></td>
+              <td data-th="Atendimento"><span class="tag tag-neutral">Automatizado</span></td>
+              <td data-th="Diferenciais">Simulação online</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">CabiniSolutions</td>
+              <td data-th="Modelo">Período variável</td>
+              <td data-th="Preço Locação">R$ 80–300
+                <button class="btn-mini ghost" data-rent-store="CabiniSolutions"
+          aria-label="Ver opções de locação CabiniSolutions">
+    <span class="dot"></span> Ver locação
+  </button>
+              </td>
+              <td data-th="Venda"><span class="chip chip-none">❌ Sem venda</span></td>
+              <td data-th="Atendimento"><span class="tag tag-cool">Seco/impaciente</span></td>
+              <td data-th="Diferenciais">Etiquetas individuais</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">Coat Casacos</td>
+              <td data-th="Modelo">Período</td>
+              <td data-th="Preço Locação">R$ 280 (9 dias)</td>
+              <td data-th="Venda">
+  <span class="chip chip-ok">🔍 Venda informada</span>
+  <button class="btn-mini" data-store="Coat Casacos"
+          aria-label="Ver opções de venda Coat Casacos">
+    <span class="dot"></span> Ver opções
+  </button>
+</td>
+
+              <td data-th="Atendimento"><span class="tag tag-good">Personalizado</span></td>
+              <td data-th="Diferenciais">Atendimento direto</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">RentCold</td>
+              <td data-th="Modelo">Categoria</td>
+              <td data-th="Preço Locação">Variável
+                <button class="btn-mini ghost" data-rent-store="RentCold"
+          aria-label="Ver opções de locação RentCold">
+    <span class="dot"></span> Ver locação
+  </button>
+  <td data-th="Venda">
+  <span class="chip chip-ok">🔍 Venda informada</span>
+  <button class="btn-mini" data-store="RentCold" aria-label="Ver opções de venda RentCold">
+    <span class="dot"></span> Ver opções
+  </button>
+</td>
+
+</td>
+
+              <td data-th="Atendimento"><span class="tag tag-mid">Médio</span></td>
+              <td data-th="Diferenciais">Experiência premium</td>
+            </tr>
+
+            <tr>
+              <td data-th="Loja">Oficina de Inverno</td>
+              <td data-th="Modelo">Venda</td>
+              <td data-th="Preço Locação"><span class="tag tag-cool">Não realiza locações</span></td>
+              <td data-th="Venda">
+                <span class="chip chip-ok">🔍 Venda informada</span>
+                <button class="btn-mini" data-store="Oficina de Inverno" aria-label="Ver opções de venda Oficina de Inverno">
+                  <span class="dot"></span> Ver opções
+                </button>
+              </td>
+              <td data-th="Atendimento"><span class="tag tag-good">Detalhado</span></td>
+              <td data-th="Diferenciais">Variedade e qualidade</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note">* “Não realiza locações” indica que a loja só trabalha com preço de venda; “Sem venda” significa que não comercializa as peças, apenas aluga.</p>
+    </section>
+<!-- ============== EXPERIÊNCIA DE ATENDIMENTO (NOVA TABELA) ============== -->
+<section class="table-wrap" aria-labelledby="atendimento-titulo">
+  <h3 id="atendimento-titulo">🧭 Experiência de Atendimento — Lojas Concorrentes</h3>
+  <p class="note">
+    Pesquisa realizada em outubro de 2025
+  </p>
+
+  <div class="table-scroll">
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th>Loja</th>
+          <th>Canais de Atendimento</th>
+          <th>Tempo de Resposta / Agilidade</th>
+          <th>Estilo de Comunicação</th>
+          <th>Pontos de Destaque / Críticas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td data-th="Loja">Aircloset Gramado</td>
+          <td data-th="Canais de Atendimento">WhatsApp (mensagem automática), Instagram</td>
+          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida via WhatsApp, mas sem calor humano</td>
+          <td data-th="Estilo de Comunicação">Comunicação seca e robótica, uso de frases curtas e pontuação “!” frequente</td>
+          <td data-th="Pontos de Destaque / Críticas">
+            Atendimento impessoal, pouco acolhedor. Oferece opção de falar com atendente, porém mantém tom mecânico.
+            Ponto positivo: processo automatizado eficiente e E-book de apoio ao cliente (R$ 25,00).
+          </td>
+        </tr>
+
+        <tr>
+          <td data-th="Loja">Iclooset Gramado</td>
+          <td data-th="Canais de Atendimento">WhatsApp, Instagram (Linktr.ee com simulação de aluguel)</td>
+          <td data-th="Tempo de Resposta / Agilidade">Resposta automatizada imediata, sem interação humana inicial</td>
+          <td data-th="Estilo de Comunicação">Comunicação objetiva, padrão comercial</td>
+          <td data-th="Pontos de Destaque / Críticas">
+            Facilidade de simulação de preços direto no link, porém ausência de personalização no atendimento.
+            Não foi possível obter diálogo humano inicial.
+          </td>
+        </tr>
+
+        <tr>
+          <td data-th="Loja">CabiniSolutions (Recife)</td>
+          <td data-th="Canais de Atendimento">Instagram (Messenger) e WhatsApp</td>
+          <td data-th="Tempo de Resposta / Agilidade">Resposta demorada – contato na sexta às 11h16, resposta apenas sábado às 09h19</td>
+          <td data-th="Estilo de Comunicação">Comunicação seca, impaciente, uso exagerado de “!”</td>
+          <td data-th="Pontos de Destaque / Críticas">
+            Passa sensação de pressa e falta de paciência; tom pouco empático (erro a evitar).
+            Apesar disso, têm organização nas etiquetas e clareza de política de preços.
+          </td>
+        </tr>
+
+        <tr>
+          <td data-th="Loja">Coat Casacos (Fortaleza)</td>
+          <td data-th="Canais de Atendimento">Instagram e WhatsApp</td>
+          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida e direta após envio de mensagem</td>
+          <td data-th="Estilo de Comunicação">Comunicação cordial e profissional, mas breve</td>
+          <td data-th="Pontos de Destaque / Críticas">
+            Atendimento funcional e eficiente. Solicitaram informações de viagem (datas e destino)
+            para personalizar orçamento — bom sinal de atenção ao cliente e personalização.
+          </td>
+        </tr>
+
+        <tr>
+          <td data-th="Loja">Rentcold</td>
+          <td data-th="Canais de Atendimento">WhatsApp e site próprio</td>
+          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida através do Instagram com link que direciona até o WhatsApp com atendimento humanizado.</td>
+          <td data-th="Estilo de Comunicação">Atendimento educado, mas com uso de erros de português, o que causa uma impressão de desatenção.</td>
+          <td data-th="Pontos de Destaque / Críticas">Aguardando análise posterior para completar a tabela.</td>
+        </tr>
+
+        <tr>
+          <td data-th="Loja">N.Closet</td>
+          <td data-th="Canais de Atendimento">Instagram (mensagem direta)</td>
+          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida, porém sem empatia</td>
+          <td data-th="Estilo de Comunicação">Comunicação seca e automatizada, envio de tabelas de preço prontas</td>
+          <td data-th="Pontos de Destaque / Críticas">
+            Atendimento frio e mecanizado. Foco apenas na resposta informativa, sem preocupação com encantamento.
+          </td>
+        </tr>
+
+        <tr>
+          <td data-th="Loja">Oficina de Inverno</td>
+          <td data-th="Canais de Atendimento">WhatsApp, site e loja física</td>
+          <td data-th="Tempo de Resposta / Agilidade">Resposta rápida e detalhada</td>
+          <td data-th="Estilo de Comunicação">Comunicação profissional e acolhedora, oferece informações completas</td>
+          <td data-th="Pontos de Destaque / Críticas">
+            Excelente atendimento: detalhamento de produtos e preços; demonstra cuidado e domínio técnico.
+            Destaque como referência positiva de atendimento e branding.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+    <!-- CTA -->
+    <section class="contact" id="contato" aria-labelledby="contato-titulo">
+      <h3 id="contato-titulo">Quer comparar outra loja?</h3>
+      <p>Envie a tabela/print e eu integro aqui mantendo a mesma forma.</p>
+      <a class="btn btn-primary" href="contato.html">Falar com a equipe</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> 7 Invernos — Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Modal VENDA -->
+  <div class="modal-backdrop" id="sale-modal" aria-hidden="true" role="dialog" aria-labelledby="sale-title">
+    <div class="modal">
+      <header>
+        <h4 id="sale-title">Opções de venda</h4>
+        <button class="btn-mini ghost" id="sale-close" aria-label="Fechar opções">Fechar</button>
+      </header>
+      <ul class="list" id="sale-list"></ul>
+      <div class="form" id="sale-form">
+        <p class="hint">Adicionar item para <strong id="sale-store-pill" class="pill"></strong></p>
+        <div class="row">
+          <input type="text" id="sale-item" placeholder="Nome do item (ex.: Jaqueta térmica)">
+          <input type="text" id="sale-price" placeholder="Preço (ex.: R$ 199,00)">
+          <button class="btn-add" id="sale-add">Adicionar</button>
+        </div>
+        <div class="actions">
+          <button class="btn-clear" id="sale-clear">Limpar itens adicionados desta loja</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal LOCAÇÃO -->
+  <div class="modal-backdrop" id="rent-modal" aria-hidden="true" role="dialog" aria-labelledby="rent-title">
+    <div class="modal">
+      <header>
+        <h4 id="rent-title">Opções de locação</h4>
+        <button class="btn-mini ghost" id="rent-close" aria-label="Fechar opções de locação">Fechar</button>
+      </header>
+      <ul class="list" id="rent-list"></ul>
+    </div>
+  </div>
+
+  <!-- JS EMBUTIDO -->
+  <script>
+    // ano no rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* =================== DADOS BASE (VENDA) =================== */
+    const SALES = {"Coat Casacos": [
+  { item: "Calça térmica",  price: "R$ 109,90" },
+  { item: "Blusa térmica",  price: "R$ 109,90" }
+],
+
+      
+          "AirCloset Gramado": [
+        { item: "Calça Térmica", price: "R$ 90,00" }
+      ],
+      "RentCold": [
+  { item: "Luva camurça",                      price: "R$ 120,00" },
+  { item: "Luva couro",                        price: "R$ 150,00" },
+  { item: "Calça térmica translúcida",         price: "R$ 280,00" },
+  { item: "Calça térmica preta (unissex)",     price: "R$ 280,00" },
+  { item: "Calça térmica bege",                price: "R$ 280,00" },
+  { item: "Calça térmica (interno preto)",     price: "R$ 280,00" },
+  { item: "Calça térmica couro",               price: "R$ 320,00" },
+  { item: "Meias segunda pele",                price: "R$ 60,00"  },
+  { item: "Meia lã de cabra",                  price: "R$ 120,00" }
+],
+
+      "Oficina de Inverno": [
+        { note: "🧤 Foco exclusivo em vendas — não realiza locações." },
+        { section: "Faixa de preços" },
+
+        { section: "Casacos" },
+        { item: "Leves",               price: "R$ 318 a R$ 1.820" },
+        { item: "Moderado/Intenso",    price: "R$ 780 a R$ 3.280" },
+
+        { item: "Blusas",              price: "R$ 288 a R$ 488" },
+
+        { section: "Acessórios" },
+        { item: "Gorros, boinas, golas, protetores de orelha", price: "R$ 59 a R$ 228" },
+        { item: "Cachecóis e xales",                            price: "R$ 118 a R$ 328" },
+        { item: "Luvas — térmica",                              price: "R$ 178" },
+        { item: "Luvas — fleece",                               price: "R$ 198" },
+        { item: "Luvas — couro",                                price: "R$ 388" },
+
+        { section: "Segunda pele" },
+        { item: "Térmica Basics",     price: "R$ 199" },
+        { item: "Super Térmica",      price: "R$ 278" },
+
+        { item: "Botas",              price: "R$ 488 a R$ 948" },
+
+        { section: "Calças" },
+        { item: "Meia-calça",         price: "R$ 168" },
+        { item: "Legging Comfort",    price: "R$ 320 a R$ 350" },
+        { item: "Invernada",          price: "R$ 392 a R$ 488" },
+        { item: "Tricot Invernada",   price: "R$ 420" },
+        { item: "Alpinea",            price: "R$ 578" },
+        { item: "Lã",                 price: "R$ 1.180" }
+      ],
+      "N.Closet": [
+        { item: "Meia calça peluciada",                price: "R$ 60,00" },
+        { item: "Conjunto térmico 2ª pele (adulto)",   price: "R$ 120,00" },
+        { item: "Conjunto térmico 2ª pele (infantil)", price: "R$ 110,00" },
+        { item: "Meia flanelada para bota",            price: "R$ 15,00"  }
+      ],
+      "entcold": [
+        { item: "Luva camurça",                         price: "R$ 120,00" },
+        { item: "Luva couro",                           price: "R$ 150,00" },
+        { item: "Calça térmica translúcida",            price: "R$ 280,00" },
+        { item: "Calça térmica preta (unissex)",        price: "R$ 280,00" },
+        { item: "Calça térmica bege",                   price: "R$ 280,00" },
+        { item: "Calça térmica (interno preto)",        price: "R$ 280,00" },
+        { item: "Calça térmica couro",                  price: "R$ 320,00" },
+        { item: "Meias segunda pele",                   price: "R$ 60,00" },
+        { item: "Meia lã de cabra",                     price: "R$ 120,00" }
+      ]
+    };
+
+    /* =================== DADOS BASE (LOCAÇÃO) =================== */
+    const RENTALS = {"RentCold": [
+  { section: "Gold" },
+  { item: "7 dias",  price: "R$ 180,00" },
+  { item: "10 dias", price: "R$ 240,00" },
+  { item: "12 dias", price: "R$ 280,00" },
+  { item: "15 dias", price: "R$ 320,00" },
+  { item: "20 dias", price: "R$ 400,00" },
+  { item: "30 dias", price: "R$ 475,00" },
+
+  { section: "Diamond" },
+  { item: "7 dias",  price: "R$ 240,00" },
+  { item: "10 dias", price: "R$ 295,00" },
+  { item: "12 dias", price: "R$ 330,00" },
+  { item: "15 dias", price: "R$ 380,00" },
+  { item: "20 dias", price: "R$ 475,00" },
+  { item: "30 dias", price: "R$ 580,00" },
+
+  { section: "Silver" },
+  { item: "7 dias",  price: "R$ 170,00" },
+  { item: "10 dias", price: "R$ 190,00" },
+  { item: "12 dias", price: "R$ 230,00" },
+  { item: "15 dias", price: "R$ 260,00" },
+  { item: "20 dias", price: "R$ 290,00" },
+  { item: "30 dias", price: "R$ 380,00" },
+
+  { section: "Vestido Blazer Diamond" },
+  { item: "7 dias",  price: "R$ 160,00" },
+  { item: "10 dias", price: "R$ 190,00" },
+  { item: "12 dias", price: "R$ 230,00" },
+  { item: "15 dias", price: "R$ 250,00" },
+  { item: "20 dias", price: "R$ 290,00" },
+  { item: "30 dias", price: "R$ 350,00" },
+
+  { section: "Casaco Ski" },
+  { item: "7 dias",  price: "R$ 380,00" },
+  { item: "10 dias", price: "R$ 430,00" },
+  { item: "12 dias", price: "R$ 480,00" },
+  { item: "15 dias", price: "R$ 510,00" },
+  { item: "20 dias", price: "R$ 650,00" },
+  { item: "30 dias", price: "R$ 840,00" },
+
+  { section: "Ski — Calça" },
+  { item: "7 dias",  price: "R$ 280,00" },
+  { item: "10 dias", price: "R$ 345,00" },
+  { item: "12 dias", price: "R$ 390,00" },
+  { item: "15 dias", price: "R$ 425,00" },
+  { item: "20 dias", price: "R$ 545,00" },
+  { item: "30 dias", price: "R$ 615,00" },
+
+  { section: "Ski — Macacão" },
+  { item: "7 dias",  price: "R$ 480,00" },
+  { item: "10 dias", price: "R$ 560,00" },
+  { item: "12 dias", price: "R$ 590,00" },
+  { item: "15 dias", price: "R$ 675,00" },
+  { item: "20 dias", price: "R$ 790,00" },
+  { item: "30 dias", price: "R$ 890,00" }
+],
+
+"CabiniSolutions": [
+{ item: "Até 7 dias",  price: "R$ valor da etiqueta variando por peça" },
+    { item: "10 dias",  price: "R$ +15%" },
+  { item: "15 dias",  price: "R$ +30%" },
+  { item: "21 dias",  price: "R$ +50%" }
+],
+
+        "ICloóset Gramado": [
+        { item: "Valor fixo para todo o período (independente de dias e peças)", price: "R$ 97-157,00" }
+],
+      "AirCloset Gramado": [
+        { item: "Acessórios", price: "R$ 40,00" },
+        { item: "Jaqueta feminina", price: "R$ 80,00" },
+        { item: "Botas", price: "R$ 80,00" },
+        { item: "Casaco vermelho",  price: "R$ 100,00" },
+        { item: "Sobretudo",        price: "R$ 140,00" },
+        { item: "Linha luxo",       price: "a partir de R$ 150,00" }
+      ]
+      
+      // Oficina de Inverno não realiza locações
+    };
+
+    /* =================== PERSISTÊNCIA (VENDAS CUSTOM) =================== */
+    const LS_KEY = "sales_custom_v1";
+    const customSales = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+    function saveCustomSales(){ localStorage.setItem(LS_KEY, JSON.stringify(customSales)); }
+    function getMergedSales(store){
+      const base  = SALES[store] ? [...SALES[store]] : [];
+      const extra = customSales[store] ? [...customSales[store]] : [];
+      return [...base, ...extra];
+    }
+
+    /* =================== MODAL DE VENDAS =================== */
+    const saleModal = document.getElementById('sale-modal');
+    const saleList  = document.getElementById('sale-list');
+    const saleTitle = document.getElementById('sale-title');
+    const saleClose = document.getElementById('sale-close');
+
+    const saleForm  = document.getElementById('sale-form');
+    const saleStorePill = document.getElementById('sale-store-pill');
+    const saleItem  = document.getElementById('sale-item');
+    const salePrice = document.getElementById('sale-price');
+    const saleAdd   = document.getElementById('sale-add');
+    const saleClear = document.getElementById('sale-clear');
+
+    let currentSaleStore = null;
+
+    // >>> render que aceita item/price e também note/section (sem "undefined")
+    function renderSaleList(store){
+      const items = getMergedSales(store);
+      saleList.innerHTML = items.length
+        ? items.map(i => {
+            if (i && typeof i === "object") {
+              if (i.section) return `<li class="li-section">${i.section}</li>`;
+              if (i.note)    return `<li class="li-note">${i.note}</li>`;
+              const left  = i.item  ? `<span>${i.item}</span>` : `<span></span>`;
+              const right = i.price ? `<span class="price">${i.price}</span>` : "";
+              return `<li>${left}${right}</li>`;
+            }
+            return "";
+          }).join("")
+        : `<li class="empty">Sem detalhes informados para esta loja.</li>`;
+      // começa do topo
+      saleList.scrollTop = 0;
+    }
+
+    function openSale(store){
+      currentSaleStore = store;
+      saleTitle.textContent = `Opções de venda — ${store}`;
+      saleStorePill.textContent = store;
+      saleStorePill.title = "Loja atual";
+      renderSaleList(store);
+      saleModal.classList.add('show');
+      saleModal.setAttribute('aria-hidden','false');
+      saleItem.value = "";
+      salePrice.value = "";
+      saleList.scrollTop = 0; // reforço
+      saleItem.focus();
+    }
+    function closeSale(){
+      saleModal.classList.remove('show');
+      saleModal.setAttribute('aria-hidden','true');
+    }
+
+    // abrir modal de vendas pelos botões da tabela
+    document.querySelectorAll('.btn-mini[data-store]').forEach(btn=>{
+      btn.addEventListener('click', ()=> openSale(btn.getAttribute('data-store')));
+    });
+    saleClose.addEventListener('click', closeSale);
+    saleModal.addEventListener('click', (e)=>{ if(e.target === saleModal) closeSale(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeSale(); });
+
+    // adicionar item (VENDA) com persistência
+    saleAdd.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const item  = saleItem.value.trim();
+      let   price = salePrice.value.trim();
+      if (!currentSaleStore) return;
+      if (!item || !price){ alert("Preencha item e preço."); return; }
+      if (!/^R\$\s*/i.test(price)) price = "R$ " + price;
+      (customSales[currentSaleStore] ||= []).push({ item, price });
+      saveCustomSales();
+      renderSaleList(currentSaleStore);
+      saleItem.value = ""; salePrice.value = ""; saleItem.focus();
+    });
+
+    // limpar apenas os itens adicionados manualmente da loja atual
+    saleClear.addEventListener('click', ()=>{
+      if (!currentSaleStore) return;
+      if (!customSales[currentSaleStore] || !customSales[currentSaleStore].length){
+        alert("Não há itens adicionados manualmente para esta loja.");
+        return;
+      }
+      if (confirm(`Remover itens adicionados manualmente de "${currentSaleStore}"?`)){
+        delete customSales[currentSaleStore];
+        saveCustomSales();
+        renderSaleList(currentSaleStore);
+      }
+    });
+
+    /* =================== MODAL DE LOCAÇÃO =================== */
+    const rentModal = document.getElementById('rent-modal');
+    const rentList  = document.getElementById('rent-list');
+    const rentTitle = document.getElementById('rent-title');
+    const rentClose = document.getElementById('rent-close');
+
+    function openRent(store){
+      const items = RENTALS[store] || [];
+      rentTitle.textContent = `Opções de locação — ${store}`;
+      rentList.innerHTML = items.length
+        ? items.map(i => `<li><span>${i.item}</span><span class="price">${i.price}</span></li>`).join('')
+        : `<li class="empty">Sem detalhes informados para esta loja.</li>`;
+      rentModal.classList.add('show');
+      rentModal.setAttribute('aria-hidden','false');
+      rentList.scrollTop = 0;
+    }
+    function closeRent(){
+      rentModal.classList.remove('show');
+      rentModal.setAttribute('aria-hidden','true');
+    }
+
+    document.querySelectorAll('.btn-mini[data-rent-store]').forEach(btn=>{
+      btn.addEventListener('click', ()=> openRent(btn.getAttribute('data-rent-store')));
+    });
+    rentClose.addEventListener('click', closeRent);
+    rentModal.addEventListener('click', (e)=>{ if(e.target === rentModal) closeRent(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') { closeRent(); closeSale(); } });
+    function renderRentList(store){
+  const items = RENTALS[store] || [];
+  rentList.innerHTML = items.length
+    ? items.map(i => {
+        if (i.section) return `<li class="li-section">${i.section}</li>`;
+        if (i.note)    return `<li class="li-note">${i.note}</li>`;
+        const left  = i.item  ? `<span>${i.item}</span>` : `<span></span>`;
+        const right = i.price ? `<span class="price">${i.price}</span>` : "";
+        return `<li>${left}${right}</li>`;
+      }).join("")
+    : `<li class="empty">Sem detalhes informados para esta loja.</li>`;
+  rentList.scrollTop = 0; // começa do topo
 }
 
-/* Reset básico e acessibilidade */
-* { box-sizing: border-box; }
-html,body { height: 100%; }
-body{
-  margin: 0;
-  font: 16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans";
-  color: var(--text);
-  background: linear-gradient(180deg, var(--muted) 0%, #eef3f3 100%);
-}
-img{ max-width: 100%; display: block; }
-a{ color: var(--primary); text-decoration: none; }
-a:hover{ text-decoration: underline; }
-h1,h2,h3,h4{ line-height: 1.2; margin: 0 0 .5rem; }
-p{ margin: 0 0 1rem; }
-em{ font-style: italic; }
-ul{ margin: 0; padding: 0 0 0 1rem; }
-
-.skip-link{
-  position: absolute; left: -9999px; top: auto;
-}
-.skip-link:focus{
-  left: 8px; top: 8px; background: var(--white);
-  color: var(--text); padding: .5rem .75rem; border-radius: 8px;
-  outline: 2px solid var(--primary);
-}
-.topbar strong {
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-weight: 800; /* ExtraBold */
-}
-/* Topbar */
-.topbar {
-  position: relative;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, rgba(30,49,90,0.55) 0%, rgba(52,156,199,0.55) 100%), 
-              url(assets/irmaos.jpg) center 40%/cover no-repeat;
-  color:#f8f9fa;
-  padding: 2.5rem .75rem 2.5rem .75rem;
-  font-weight: 600;
-  letter-spacing: .2px;
+function openRent(store){
+  rentTitle.textContent = `Opções de locação — ${store}`;
+  renderRentList(store);
+  rentModal.classList.add('show');
+  rentModal.setAttribute('aria-hidden','false');
 }
 
-/* Header & Nav */
-.site-header{
-  display: grid; grid-template-columns: 1fr auto;
-  gap: var(--space);
-  align-items: center;
-  background: var(--white);
-  padding: var(--space-lg);
-  border-bottom: 2px solid color-mix(in srgb, var(--secondary) 20%, #fff);
-}
-.brand{ display: flex; align-items: center; gap: .75rem; }
-.logo{
-  width: 48px; height: 48px; border-radius: 50%;
-  display: grid; place-items: center;
-  color: var(--white);
-  background: radial-gradient(75% 75% at 30% 30%, var(--primary), var(--secondary));
-  box-shadow: var(--shadow);
-  font-size: 1.25rem;
-}
-.brand-text h1{ font-size: clamp(1.15rem, 2.4vw, 1.6rem); margin: 0; }
-.brand-text .sub{ margin: .15rem 0 0; color: #476078; font-size: .95rem; }
-
-.nav .menu{
-  list-style: none; display: flex; gap: .5rem;
-  margin: 0; padding: 0;
-}
-.nav a{
-  display: inline-block;
-  padding: .6rem .9rem;
-  border-radius: 999px;
-  font-weight: 600;
-  color: #183142;
-}
-.nav a:hover{ background: color-mix(in srgb, var(--muted) 60%, #fff); text-decoration: none; }
-.nav a.active:hover.btn-primary { background: var(--primary); color: var(--white); }
-
-/* Hero */
-.hero{
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-  margin: var(--space-lg);
-  padding: clamp(1.25rem, 4vw, 2.25rem);
-  background:
-    linear-gradient(135deg, color-mix(in srgb, var(--primary) 40%, #fff) 0%, color-mix(in srgb, var(--secondary) 65%, #fff) 100%),
-    var(--muted);
-  color: #0f2533;
-  box-shadow: var(--shadow);
-}
-.hero-inner{ max-width: 900px; }
-.hero h2{ font-size: clamp(1.3rem, 4vw, 2rem); margin-bottom: .25rem; }
-.hero p{ opacity: .95; }
-
-/* Chips e tags */
-.chips{ display: flex; gap: .5rem; flex-wrap: wrap; margin: 0 var(--space-lg); }
-.chip{
-  display: inline-block;
-  padding: .35rem .6rem;
-  border-radius: 999px;
-  font-size: .85rem;
-  border: 1px solid color-mix(in srgb, var(--secondary) 25%, #fff);
-  background: #fff;
-  color: #183142;
-}
-.chip-ok{ background: #e8f7f1; color: #176a4f; border-color: #b9e8d6; }
-.chip-pending{ background: #fff7e6; color: #8a5b00; border-color: #f2d6a2; }
-.chip-none{ background: #fdecee; color: #8a1f2a; border-color: #f2b5be; }
-
-.tag{
-  display: inline-block;
-  padding: .25rem .5rem;
-  border-radius: 999px;
-  font-size: .8rem;
-  border: 1px solid color-mix(in srgb, var(--secondary) 25%, #fff);
-  background: #fff;
-}
-.tag-good{ background: #e8f7f1; color: #176a4f; border-color: #b9e8d6; }
-.tag-mid{ background: #e7f2fb; color: #144366; border-color: #b8d6ee; }
-.tag-cool{ background: #edf1f5; color: #364a5d; }
-.tag-neutral{ background: #f4f7f8; color: #3b556a; }
-
-.legend{ padding: var(--space-lg) var(--space-lg) 0; }
-.note{ color: #345268; margin: .5rem var(--space-lg); font-size: .95rem; }
-
-/* Tabela */
-.table-wrap{ padding: var(--space-lg); }
-.table-wrap h3{ margin: 0 0 .75rem; }
-.table-scroll{
-  overflow: auto;
-  background: var(--white);
-  border-radius: var(--radius);
-  border: 1px solid color-mix(in srgb, var(--secondary) 20%, #fff);
-  box-shadow: var(--shadow);
-}
-/* Alinha o botão "Ver locação" como uma tabulação à direita da célula */
-@media (min-width: 701px){
-  .cmp-table td[data-th="Preço Locação"]{
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-  }
-  .cmp-table td[data-th="Preço Locação"] .btn-mini{
-    margin-left: auto; /* empurra o botão para a borda direita da célula */
-  }
-}
-/* Remove a linha sutil (border-bottom) que aparece na coluna "Preço Locação" */
-@media (min-width: 701px){
-  .cmp-table td[data-th="Preço Locação"]{
-    border-bottom: none !important;        /* remove a risca dentro da célula */
-  }
-}
-
-.cmp-table{
-  width: 100%; border-collapse: collapse; min-width: 880px;
-}
-.cmp-table thead th{
-  position: sticky; top: 0;
-  background: color-mix(in srgb, var(--muted) 25%, #fff);
-  color: #0f3147;
-  text-align: left;
-  padding: .8rem .9rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--muted) 55%, #fff);
-}
-.cmp-table tbody td{
-  padding: .8rem .9rem; vertical-align: top;
-  border-bottom: 1px solid color-mix(in srgb, var(--muted) 60%, #fff);
-}
-.cmp-table tbody tr:nth-child(odd){
-  background: color-mix(in srgb, var(--muted) 85%, #fff);
-}
-
-/* Layout responsivo para tabela empilhada (opcional) */
-@media (max-width: 700px){
-  .cmp-table, .cmp-table thead, .cmp-table tbody, .cmp-table th, .cmp-table td, .cmp-table tr { display: block; }
-  .cmp-table thead{ display: none; }
-  .cmp-table tr{ border-bottom: 1px solid color-mix(in srgb, var(--muted) 60%, #fff); }
-  .cmp-table td{
-    padding: .6rem .9rem .4rem;
-    display: grid; grid-template-columns: 130px 1fr; gap: .5rem;
-  }
-  .cmp-table td::before{
-    content: attr(data-th);
-    font-weight: 700; color: #17364c;
-  }
-}
-
-/* Rodapé */
-.site-footer{
-  text-align: center;
-  color: #3b556a;
-  padding: 1.25rem;
-}
-
-/* Print */
-@media print{
-  body{ background: white; }
-  .topbar, .nav{ display: none; }
-  .hero{ box-shadow: none; border: 1px solid #ddd; }
-  .table-scroll{ box-shadow: none; border: 1px solid #ccc; }
-}
-.has-branch details{
-  position: relative;
-}
-.has-branch summary{
-  list-style: none;
-  display: inline-block;
-  padding: .6rem .9rem;
-  border-radius: 999px;
-  font-weight: 600;
-  color: #183142;
-  cursor: pointer;
-}
-.has-branch summary:hover{ background: color-mix(in srgb, var(--muted) 60%, #fff); }
-.has-branch summary::-webkit-details-marker{ display: none; }
-
-/* Dropdown (desktop) */
-.has-branch .dropdown{
-  position: absolute;
-  top: calc(100% + .5rem);
-  left: 0;
-  background: var(--white);
-  border: 1px solid color-mix(in srgb, var(--secondary) 20%, #fff);
-  box-shadow: var(--shadow);
-  border-radius: var(--radius);
-  min-width: 260px;
-  padding: .25rem;
-  display: none;
-  z-index: 20;
-}
-.has-branch details[open] > .dropdown{ display: block; }
-.dropdown li{ list-style: none; }
-.dropdown a{
-  display: block; padding: .65rem .8rem; border-radius: 10px;
-  color: #1b2c3a; font-weight: 500;
-}
-.dropdown a:hover{ background: color-mix(in srgb, var(--muted) 60%, #fff); }
-/* Deixa a tag “Atendimento” claramente clicável */
-.tag-click{ cursor:pointer; appearance:none; -webkit-appearance:none; }
-.tag-click:focus{ outline:2px solid var(--primary); outline-offset:2px; }
-/* Rolagem suave para âncoras */
-html { scroll-behavior: smooth; }
-
-/* Se o topo tiver altura relevante, garante que o alvo não fique escondido */
-#atendimento-titulo { scroll-margin-top: 96px; } /* ajuste se precisar */
-
-/* Link no <th> com aparência de título */
-.cmp-table thead th .th-link{
-  color: inherit;
-  text-decoration: none;
-}
-.cmp-table thead th .th-link:hover{
-  text-decoration: underline;
-}
-/* Hero com imagem de fundo e overlay azul, no estilo do topbar */
-.hero.hero--metodologia{
-  position: relative;
-  color: #f8f9fa;
-  /* mesmo conceito do topbar: gradiente azul + imagem */
-  background:
-    linear-gradient(180deg, rgba(30,49,90,0.55) 0%, rgba(52,156,199,0.55) 100%),
-    url('/assets/metodologia__background__grafico.jpg') center 40%/cover no-repeat;
-}
-
-/* Cartão de metodologia levemente translúcido sobre a foto */
-/* Remove o retângulo do bloco de metodologia e ajusta a leitura sobre a foto */
-.hero.hero--metodologia .hero-method{
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  padding: .25rem 0 0 !important;
-}
-
-.hero.hero--metodologia .hero-method-title{
-  color: #fff;               /* título em branco */
-}
-
-.hero.hero--metodologia .hero-method-list{
-  color: #eaf3f7;            /* texto mais claro */
-}
-.hero.hero--metodologia .hero-method-list li::marker{
-  color: #cfe8f5;            /* marcadores azulados */
-}
-
-/* (opcional) leve sombra para contraste em fundos mais claros */
-.hero.hero--metodologia h2,
-.hero.hero--metodologia .hero-method *{
-  text-shadow: 0 1px 2px rgba(0,0,0,.25);
-}
-
-/* ============================
-   RESPONSIVIDADE MOBILE (nova_tabela.html)
-   — cole no final do nova_tabela.css
-   — sem JavaScript
-===============================*/
-
-/* 0) Ajustes gerais */
-@media (max-width: 540px){
-  :root{
-    --space: .9rem;
-    --space-lg: 1rem;
-  }
-  .table-wrap{ padding: var(--space); }
-  .legend{ padding: var(--space) var(--space) 0; }
-  .note{ margin: .5rem var(--space); font-size: .93rem; }
-}
-
-/* 1) Topbar mais enxuta em telas pequenas */
-@media (max-width: 640px){
-  .topbar{
-    min-height: 180px;
-    padding: 1.25rem .75rem;
-    background-position: center 35%;
-  }
-}
-
-/* 2) Header e Navegação
-   - empilha marca + nav
-   - menu horizontal com rolagem (estilo chips) */
-@media (max-width: 900px){
-  .site-header{
-    grid-template-columns: 1fr;
-    gap: .6rem;
-    padding: var(--space);
-  }
-  .brand{ justify-content: space-between; }
-  .nav{ overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .nav .menu{
-    flex-wrap: nowrap;
-    white-space: nowrap;
-    gap: .4rem;
-    padding-bottom: .25rem;
-    margin-bottom: -.25rem;
-  }
-  /* esconde a barra em iOS/Android sem quebrar acessibilidade */
-  .nav::-webkit-scrollbar{ display: none; }
-}
-
-/* 3) Dropdowns do menu: viram estáticos no mobile (sem posicionamento absoluto) */
-@media (max-width: 900px){
-  .has-branch{ position: static; }
-  .has-branch .dropdown{
-    position: static;
-    min-width: 0;
-    width: auto;
-    margin-top: .25rem;
-    box-shadow: none;
-  }
-}
-
-/* 4) Hero (metodologia): tipografia e respiro */
-@media (max-width: 640px){
-  .hero{
-    margin: var(--space);
-    padding: clamp(.9rem, 4.5vw, 1.4rem);
-    border-radius: 14px;
-  }
-  .hero h2{ font-size: clamp(1.2rem, 5.5vw, 1.6rem); }
-  .hero p, .hero .hero-method-list{ font-size: .95rem; }
-  .hero.hero--metodologia{
-    background-position: center 38%;
-  }
-}
-
-/* 5) Tabela principal
-   - já há versão empilhada; estes ajustes refinam o layout
-   - melhora leitura e posiciona botões dentro das células */
-@media (max-width: 700px){
-  .table-scroll{
-    border-radius: 12px;
-  }
-  .cmp-table td{
-    /* col 1 = rótulo (data-th); col 2 = conteúdo */
-    grid-template-columns: 120px 1fr;
-    gap: .45rem .6rem;
-    word-break: break-word;
-  }
-  /* célula de Preço de Locação com botão à direita */
-  .cmp-table td[data-th="Preço Locação"]{
-    align-items: center;
-    grid-template-columns: 120px 1fr; /* rótulo + conteúdo+botão */
-  }
-  .cmp-table td[data-th="Preço Locação"] .btn-mini{
-    justify-self: end;
-    margin-left: .5rem;
-  }
-  /* célula de Venda também com botão alinhado */
-  .cmp-table td[data-th="Venda"]{
-    align-items: center;
-  }
-  .cmp-table td[data-th="Venda"] .btn-mini{
-    justify-self: start; /* fica logo após o conteúdo */
-    margin-left: .5rem;
-  }
-}
-
-/* 6) Botões: alvos maiores para toque */
-@media (max-width: 700px){
-  .btn-mini{
-    padding: .55rem .75rem;
-    font-size: .9rem;
-  }
-}
-
-/* 7) Tabela "Experiência de Atendimento" — mesma responsividade */
-@media (max-width: 700px){
-  section#atendimento-titulo ~ .table-scroll .cmp-table td{
-    grid-template-columns: 120px 1fr;
-  }
-}
-
-/* 8) Modais (quando abertos por CSS/JS do próprio arquivo):
-   100% da tela no mobile, sem bordas e com cabeçalho fixo */
-@media (max-width: 640px){
-  .modal-backdrop{ padding: 0; }
-  .modal{
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-  }
-  .modal header{
-    position: sticky; top: 0; z-index: 1;
-    background: #fff;
-  }
-  .modal .list{
-    max-height: none;
-    padding: .75rem .75rem 1rem;
-  }
-  .form .row{ grid-template-columns: 1fr; }
-}
-
-/* 9) Acessibilidade: foco visível no teclado (mobile/desktop) */
-@media (any-pointer: coarse){
-  .btn-mini, .tag-click, .nav a, .dropdown a{
-    -webkit-tap-highlight-color: transparent;
-  }
-}
-:focus-visible{
-  outline: 2px solid color-mix(in srgb, var(--primary) 65%, #fff);
-  outline-offset: 2px;
-  border-radius: 10px;
-}
-
-/* 10) Pequenos refinamentos de espaçamento para mobile */
-@media (max-width: 540px){
-  .chips{ margin: 0 var(--space); }
-  .site-footer{ padding: 1rem; }
-}
+  </script>
+</body>
+</html>
