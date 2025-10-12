@@ -31,6 +31,169 @@ p{ margin: 0 0 1rem; }
 em{ font-style: italic; }
 ul{ margin: 0; padding: 0 0 0 1rem; }
 
+/* ============================
+   iOS / Safari MOBILE FIXES
+   — cole no final do nova_tabela.css
+   — sem JavaScript
+===============================*/
+
+/* 0) Base iOS: respeitar safe-areas e impedir auto-zoom agressivo */
+html{
+  -webkit-text-size-adjust: 100%;
+}
+:root{
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --safe-left: env(safe-area-inset-left);
+  --safe-right: env(safe-area-inset-right);
+}
+
+/* 1) Alturas com viewport moderno (sem “salto” dos toolbars do Safari) */
+body{
+  min-height: 100vh;        /* fallback */
+  min-height: 100svh;       /* iOS 15.4+ “small viewport” */
+  min-height: 100dvh;       /* viewport dinâmico moderno */
+}
+
+/* 2) Topbar com safe-area */
+@media (max-width: 640px){
+  .topbar{
+    padding-top: calc(1rem + var(--safe-top));
+    padding-bottom: 1.25rem;
+    min-height: 180px;
+    background-position: center 35%;
+  }
+}
+
+/* 3) Header + Menu rolável estilo “chips” (com inércia no iOS) */
+@media (max-width: 900px){
+  .site-header{
+    grid-template-columns: 1fr;
+    gap: .6rem;
+    padding: var(--space);
+  }
+  .nav{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+  }
+  .nav .menu{
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: .4rem;
+    padding-bottom: .25rem;
+    margin-bottom: -.25rem;
+  }
+  .nav::-webkit-scrollbar{ display: none; }
+  .has-branch{ position: static; }
+  .has-branch .dropdown{
+    position: static; min-width: 0; width: auto; margin-top: .25rem; box-shadow: none;
+  }
+  .has-branch summary{ -webkit-tap-highlight-color: transparent; }
+}
+
+/* 4) Hero (metodologia): tipografia e respiro em iPhone */
+@media (max-width: 640px){
+  .hero{
+    margin: var(--space);
+    padding: clamp(.9rem, 4.5vw, 1.4rem);
+    border-radius: 14px;
+  }
+  .hero h2{ font-size: clamp(1.2rem, 5.5vw, 1.6rem); }
+  .hero p, .hero .hero-method-list{ font-size: .95rem; }
+  .hero.hero--metodologia{ background-position: center 38%; }
+}
+
+/* 5) Tabela: rolagem com inércia e sticky robusto no iOS */
+.table-scroll{
+  -webkit-overflow-scrolling: touch; /* momentum scroll */
+}
+.cmp-table thead{
+  transform: translateZ(0);          /* ajuda sticky no iOS */
+  will-change: transform;
+}
+.cmp-table thead th{
+  position: sticky; top: 0; z-index: 2;
+}
+
+/* Layout empilhado (já existe) + refinamentos no iPhone */
+@media (max-width: 700px){
+  .table-scroll{ border-radius: 12px; }
+  .cmp-table td{
+    grid-template-columns: 120px 1fr;
+    gap: .45rem .6rem;
+    word-break: break-word;
+  }
+  /* botões dentro das células no mobile */
+  .cmp-table td[data-th="Preço Locação"]{ align-items: center; }
+  .cmp-table td[data-th="Preço Locação"] .btn-mini{ justify-self: end; margin-left: .5rem; }
+  .cmp-table td[data-th="Venda"]{ align-items: center; }
+  .cmp-table td[data-th="Venda"] .btn-mini{ margin-left: .5rem; }
+}
+
+/* Fallback para navegadores sem sticky confiável (iOS muito antigos) */
+@supports not (position: sticky){
+  .cmp-table thead th{ position: static; }
+}
+
+/* 6) Inputs: evitar zoom ao focar (iOS exige >=16px) */
+@media (max-width: 640px){
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="number"]{
+    font-size: 16px;
+  }
+}
+
+/* 7) Modais tela cheia no iPhone + safe-areas + inércia */
+@media (max-width: 640px){
+  .modal-backdrop{
+    padding: 0;
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+    overscroll-behavior: contain;       /* evita body rolar atrás */
+  }
+  .modal{
+    width: 100vw;
+    height: 100vh; height: 100svh; height: 100dvh;
+    border-radius: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+  }
+  .modal header{
+    position: sticky; top: 0; z-index: 3; background: #fff;
+    padding-top: calc(1rem + var(--safe-top));
+  }
+  .modal .list{
+    max-height: none;
+    padding: .75rem .75rem 1rem;
+    -webkit-overflow-scrolling: touch;
+  }
+  .form .row{ grid-template-columns: 1fr; }
+}
+
+/* 8) Toque e foco (UX) */
+@media (any-pointer: coarse){
+  .btn-mini, .tag-click, .nav a, .dropdown a{ -webkit-tap-highlight-color: transparent; }
+}
+:focus-visible{
+  outline: 2px solid color-mix(in srgb, var(--primary) 65%, #fff);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* 9) Rodapé com safe-area no iPhone */
+@media (max-width: 640px){
+  .site-footer{
+    padding-bottom: calc(1rem + var(--safe-bottom));
+  }
+}
+
 .skip-link{
   position: absolute; left: -9999px; top: auto;
 }
@@ -306,4 +469,353 @@ html { scroll-behavior: smooth; }
 .hero.hero--metodologia h2,
 .hero.hero--metodologia .hero-method *{
   text-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+/* ============================
+   RESPONSIVIDADE MOBILE (nova_tabela.html)
+   — cole no final do nova_tabela.css
+   — sem JavaScript
+===============================*/
+
+/* 0) Ajustes gerais */
+@media (max-width: 540px){
+  :root{
+    --space: .9rem;
+    --space-lg: 1rem;
+  }
+  .table-wrap{ padding: var(--space); }
+  .legend{ padding: var(--space) var(--space) 0; }
+  .note{ margin: .5rem var(--space); font-size: .93rem; }
+}
+
+/* 1) Topbar mais enxuta em telas pequenas */
+@media (max-width: 640px){
+  .topbar{
+    min-height: 180px;
+    padding: 1.25rem .75rem;
+    background-position: center 35%;
+  }
+}
+
+/* 2) Header e Navegação
+   - empilha marca + nav
+   - menu horizontal com rolagem (estilo chips) */
+@media (max-width: 900px){
+  .site-header{
+    grid-template-columns: 1fr;
+    gap: .6rem;
+    padding: var(--space);
+  }
+  .brand{ justify-content: space-between; }
+  .nav{ overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nav .menu{
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: .4rem;
+    padding-bottom: .25rem;
+    margin-bottom: -.25rem;
+  }
+  /* esconde a barra em iOS/Android sem quebrar acessibilidade */
+  .nav::-webkit-scrollbar{ display: none; }
+}
+
+/* 3) Dropdowns do menu: viram estáticos no mobile (sem posicionamento absoluto) */
+@media (max-width: 900px){
+  .has-branch{ position: static; }
+  .has-branch .dropdown{
+    position: static;
+    min-width: 0;
+    width: auto;
+    margin-top: .25rem;
+    box-shadow: none;
+  }
+}
+
+/* 4) Hero (metodologia): tipografia e respiro */
+@media (max-width: 640px){
+  .hero{
+    margin: var(--space);
+    padding: clamp(.9rem, 4.5vw, 1.4rem);
+    border-radius: 14px;
+  }
+  .hero h2{ font-size: clamp(1.2rem, 5.5vw, 1.6rem); }
+  .hero p, .hero .hero-method-list{ font-size: .95rem; }
+  .hero.hero--metodologia{
+    background-position: center 38%;
+  }
+}
+
+/* 5) Tabela principal
+   - já há versão empilhada; estes ajustes refinam o layout
+   - melhora leitura e posiciona botões dentro das células */
+@media (max-width: 700px){
+  .table-scroll{
+    border-radius: 12px;
+  }
+  .cmp-table td{
+    /* col 1 = rótulo (data-th); col 2 = conteúdo */
+    grid-template-columns: 120px 1fr;
+    gap: .45rem .6rem;
+    word-break: break-word;
+  }
+  /* célula de Preço de Locação com botão à direita */
+  .cmp-table td[data-th="Preço Locação"]{
+    align-items: center;
+    grid-template-columns: 120px 1fr; /* rótulo + conteúdo+botão */
+  }
+  .cmp-table td[data-th="Preço Locação"] .btn-mini{
+    justify-self: end;
+    margin-left: .5rem;
+  }
+  /* célula de Venda também com botão alinhado */
+  .cmp-table td[data-th="Venda"]{
+    align-items: center;
+  }
+  .cmp-table td[data-th="Venda"] .btn-mini{
+    justify-self: start; /* fica logo após o conteúdo */
+    margin-left: .5rem;
+  }
+}
+
+/* 6) Botões: alvos maiores para toque */
+@media (max-width: 700px){
+  .btn-mini{
+    padding: .55rem .75rem;
+    font-size: .9rem;
+  }
+}
+
+/* 7) Tabela "Experiência de Atendimento" — mesma responsividade */
+@media (max-width: 700px){
+  section#atendimento-titulo ~ .table-scroll .cmp-table td{
+    grid-template-columns: 120px 1fr;
+  }
+}
+
+/* 8) Modais (quando abertos por CSS/JS do próprio arquivo):
+   100% da tela no mobile, sem bordas e com cabeçalho fixo */
+@media (max-width: 640px){
+  .modal-backdrop{ padding: 0; }
+  .modal{
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+  .modal header{
+    position: sticky; top: 0; z-index: 1;
+    background: #fff;
+  }
+  .modal .list{
+    max-height: none;
+    padding: .75rem .75rem 1rem;
+  }
+  .form .row{ grid-template-columns: 1fr; }
+}
+
+/* 9) Acessibilidade: foco visível no teclado (mobile/desktop) */
+@media (any-pointer: coarse){
+  .btn-mini, .tag-click, .nav a, .dropdown a{
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+:focus-visible{
+  outline: 2px solid color-mix(in srgb, var(--primary) 65%, #fff);
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+
+/* 10) Pequenos refinamentos de espaçamento para mobile */
+@media (max-width: 540px){
+  .chips{ margin: 0 var(--space); }
+  .site-footer{ padding: 1rem; }
+}
+
+/* ============================
+   FIXES iOS / SAFARI (MOBILE)
+   — cole no final do nova_tabela.css
+   — sem JavaScript
+===============================*/
+
+/* Base: não deixar o iOS “re-escala” tipografia */
+html { -webkit-text-size-adjust: 100%; }
+
+/* Safe-areas (iPhone com notch) */
+:root{
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+  --safe-left: env(safe-area-inset-left);
+  --safe-right: env(safe-area-inset-right);
+}
+
+/* Viewport estável em iOS (barras do Safari variam) */
+body{
+  min-height: 100vh;    /* fallback */
+  min-height: 100svh;   /* iOS15.4+ small viewport */
+  min-height: 100dvh;   /* viewport dinâmico moderno */
+}
+
+/* Topbar respeitando a safe-area e foto bem posicionada */
+@media (max-width: 640px){
+  .topbar{
+    padding-top: calc(1rem + var(--safe-top));
+    padding-bottom: 1.25rem;
+    min-height: 180px;
+    background-position: center 35%;
+  }
+}
+
+/* Header + menu: rolagem horizontal com inércia no iOS */
+@media (max-width: 900px){
+  .site-header{
+    grid-template-columns: 1fr;
+    gap: .6rem;
+    padding: var(--space);
+  }
+  .nav{
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* momentum scroll */
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+  }
+  .nav .menu{
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    gap: .4rem;
+    padding-bottom: .25rem;
+    margin-bottom: -.25rem;
+  }
+  .nav::-webkit-scrollbar{ display: none; }
+  .has-branch{ position: static; }
+  .has-branch .dropdown{
+    position: static; min-width: 0; width: auto; margin-top: .25rem; box-shadow: none;
+  }
+}
+
+/* Hero (metodologia): tipografia/respiro no iPhone */
+@media (max-width: 640px){
+  .hero{
+    margin: var(--space);
+    padding: clamp(.9rem, 4.5vw, 1.4rem);
+    border-radius: 14px;
+  }
+  .hero h2{ font-size: clamp(1.2rem, 5.5vw, 1.6rem); }
+  .hero p, .hero .hero-method-list{ font-size: .95rem; }
+  .hero.hero--metodologia{ background-position: center 38%; }
+}
+
+/* ---------- TABELAS ---------- */
+/* 1) Desktop/tablet: sticky confiável no iOS (thead) */
+.cmp-table thead{
+  transform: translateZ(0);  /* força camada própria no Safari */
+  will-change: transform;
+}
+.cmp-table thead th{
+  position: sticky; top: 0; z-index: 2;
+}
+
+/* 2) iPhone — “modo cartão” SEM contêiner rolável aninhado
+   (evita bugs de sticky/scroll dentro de .table-scroll) */
+@supports (-webkit-touch-callout: none){
+  @media (max-width: 700px){
+    .table-scroll{
+      overflow: visible;       /* página inteira rola, não o contêiner */
+      border-radius: 12px;
+    }
+    .cmp-table{ min-width: 0; width: 100%; }
+    .cmp-table, .cmp-table thead, .cmp-table tbody, .cmp-table th, .cmp-table td, .cmp-table tr { display: block; }
+    .cmp-table thead{ display: none; }
+    .cmp-table tr{ border-bottom: 1px solid color-mix(in srgb, var(--muted) 60%, #fff); }
+    .cmp-table td{
+      padding: .6rem .9rem .4rem;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: .45rem .6rem;
+      word-break: break-word;
+    }
+    .cmp-table td::before{
+      content: attr(data-th);
+      font-weight: 700; color: #17364c;
+    }
+    /* Botões dentro das células */
+    .cmp-table td[data-th="Preço Locação"],
+    .cmp-table td[data-th="Venda"]{ align-items: center; }
+    .cmp-table td[data-th="Preço Locação"] .btn-mini{ justify-self: end; margin-left: .5rem; }
+    .cmp-table td[data-th="Venda"] .btn-mini{ margin-left: .5rem; }
+  }
+}
+
+/* 3) Alvos de toque maiores no mobile */
+@media (max-width: 700px){
+  .btn-mini{ padding: .55rem .75rem; font-size: .9rem; }
+}
+
+/* ---------- MODAIS ---------- */
+/* iPhone: modal 100% da tela, safe-areas, inércia no conteúdo */
+@supports (-webkit-touch-callout: none){
+  @media (max-width: 640px){
+    .modal-backdrop{
+      position: fixed; inset: 0;
+      padding: 0;
+      height: 100vh; height: 100svh; height: 100dvh;
+      overscroll-behavior: contain; /* não rolar o body atrás */
+    }
+    .modal{
+      width: 100vw;
+      height: 100vh; height: 100svh; height: 100dvh;
+      border-radius: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding-left: var(--safe-left);
+      padding-right: var(--safe-right);
+    }
+    .modal header{
+      position: sticky; top: 0; z-index: 3; background: #fff;
+      padding-top: calc(1rem + var(--safe-top));
+    }
+    .modal .list{
+      max-height: none;
+      padding: .75rem .75rem 1rem;
+      -webkit-overflow-scrolling: touch; /* momentum no iOS */
+    }
+    .form .row{ grid-template-columns: 1fr; }
+  }
+}
+
+/* Inputs >=16px para evitar zoom automático no iOS */
+@media (max-width: 640px){
+  input[type="text"],
+  input[type="tel"],
+  input[type="email"],
+  input[type="number"]{ font-size: 16px; }
+}
+
+/* Toque/foco */
+@media (any-pointer: coarse){
+  .btn-mini, .tag-click, .nav a, .dropdown a{ -webkit-tap-highlight-color: transparent; }
+}
+:focus-visible{
+  outline: 2px solid color-mix(in srgb, var(--primary) 65%, #fff);
+  outline-offset: 2px; border-radius: 10px;
+}
+
+/* Rodapé com safe-area */
+@media (max-width: 640px){
+  .site-footer{ padding-bottom: calc(1rem + var(--safe-bottom)); }
+}
+/* ====== GRÁFICO (responsivo + iOS-friendly) ====== */
+.chart-wrap{
+  background: #fff;
+  border: 1px solid color-mix(in srgb, var(--secondary) 20%, #fff);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: .75rem;
+  overflow-x: auto;                /* se faltar largura, pode rolar */
+  -webkit-overflow-scrolling: touch;
+}
+.chart-wrap canvas{ min-width: 680px; } /* garante leitura em telas pequenas */
+
+@media (max-width: 640px){
+  #comparativo-precos{ padding: var(--space); }
+  .chart-wrap{ padding: .5rem; border-radius: 12px; }
 }
