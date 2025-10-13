@@ -225,6 +225,24 @@
               <td data-th="Atendimento"><span class="tag tag-mid">Médio</span></td>
               <td data-th="Diferenciais">Experiência premium</td>
             </tr>
+            <tr>
+  <td data-th="Loja">N.Closet</td>
+  <td data-th="Modelo">Diária</td>
+  <td data-th="Preço Locação">
+    R$ 2,90–27,90
+    <button class="btn-mini ghost" data-rent-store="N.Closet" aria-label="Ver opções de locação N.Closet">
+      <span class="dot"></span> Ver locação
+    </button>
+  </td>
+  <td data-th="Venda">
+    <span class="chip chip-ok">🔍 Venda informada</span>
+    <button class="btn-mini" data-store="N.Closet" aria-label="Ver opções de venda N.Closet">
+      <span class="dot"></span> Ver opções
+    </button>
+  </td>
+  <td data-th="Atendimento"><span class="tag tag-neutral">Automatizado</span></td>
+  <td data-th="Diferenciais">Envio de tabela consolidada</td>
+</tr>
 
             <tr>
               <td data-th="Loja">Oficina de Inverno</td>
@@ -491,9 +509,36 @@
         { item: "Casaco vermelho",  price: "R$ 100,00" },
         { item: "Sobretudo",        price: "R$ 140,00" },
         { item: "Linha luxo",       price: "a partir de R$ 150,00" }
-      ]
-      // Oficina de Inverno não realiza locações
-    };
+      ],
+      "N.Closet": [
+    { section: "Adulto — diárias (mín. 3)" },
+    { item: "Casaco impermeável (slim/leve)",                   price: "R$ 13,90" },
+    { item: "Casaco premium",                                   price: "R$ 17,90" },
+    { item: "Jaquetas slim",                                    price: "R$ 8,90"  },
+    { item: "Jaquetas premium",                                 price: "R$ 17,90" },
+    { item: "Sobretudo (linha slim/suedes/trench/teddys)",      price: "R$ 15,90" },
+    { item: "Sobretudo premium",                                price: "R$ 19,90" },
+    { item: "Blazer",                                           price: "R$ 11,90" },
+    { item: "Blusa tricot, moletom e fleece",                   price: "R$ 6,90"  },
+    { item: "Calças / saias / shorts",                          price: "R$ 6,90"  },
+    { item: "Vestidos / botas / coletes",                       price: "R$ 8,90"  },
+
+    { section: "Ski / Neve" },
+    { item: "Macacão impermeável",                              price: "R$ 19,90" },
+    { item: "Macacão canelado ski",                             price: "R$ 8,90"  },
+    { item: "Calça impermeável",                                price: "R$ 11,90" },
+    { item: "Calças The North Face",                            price: "R$ 6,90"  },
+    { item: "Casacos The North Face",                           price: "R$ 19,90" },
+    { item: "Bota neve premium (MoonBoot / UGG)",               price: "R$ 27,90" },
+    { item: "Bota de neve tradicional (cano curto)",            price: "R$ 12,90" },
+    { item: "Luvas de neve impermeáveis",                       price: "R$ 3,90"  },
+
+    { section: "Acessórios" },
+    { item: "Cachecol / gorros / protetor de ouvido / luvas de tecido", price: "R$ 2,90" },
+
+    { note: "Mínimo de 3 diárias." }
+  ]
+};
 
     /* =================== MODAIS (VENDA/LOCAÇÃO) =================== */
     const saleModal = document.getElementById('sale-modal');
